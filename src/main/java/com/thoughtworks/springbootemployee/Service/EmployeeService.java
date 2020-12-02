@@ -1,7 +1,7 @@
 package com.thoughtworks.springbootemployee.Service;
 
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
-import com.thoughtworks.springbootemployee.controller.Employee;
+import com.thoughtworks.springbootemployee.Model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

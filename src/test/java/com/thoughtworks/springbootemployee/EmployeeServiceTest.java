@@ -1,14 +1,13 @@
 package com.thoughtworks.springbootemployee;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.Service.EmployeeService;
-import com.thoughtworks.springbootemployee.controller.Employee;
+import com.thoughtworks.springbootemployee.Model.Employee;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.when;

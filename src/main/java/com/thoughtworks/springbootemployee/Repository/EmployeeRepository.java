@@ -1,6 +1,6 @@
 package com.thoughtworks.springbootemployee.Repository;
 
-import com.thoughtworks.springbootemployee.controller.Employee;
+import com.thoughtworks.springbootemployee.Model.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

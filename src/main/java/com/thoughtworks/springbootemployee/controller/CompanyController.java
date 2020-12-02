@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.Model.Company;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
