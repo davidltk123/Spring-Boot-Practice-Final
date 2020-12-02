@@ -43,4 +43,21 @@ public class CompanyServiceTest {
         //then
         assertEquals(expected,companies);
     }
+
+    @Test
+    public void should_return_specific_company_when_get_by_id_given_valid_company_id() {
+        //given
+        final List<Employee> employees = Arrays.asList(
+                new Employee(1,"david",22,"male",11111),
+                new Employee(1,"peter",22,"male",11111)
+        );
+        final Company expected = new Company("alibaba",2,employees);
+        when(companyRepository.getById(1)).thenReturn(expected);
+
+        //when
+        final Company companies = companyService.getById(1);
+
+        //then
+        assertEquals(expected,companies);
+    }
 }

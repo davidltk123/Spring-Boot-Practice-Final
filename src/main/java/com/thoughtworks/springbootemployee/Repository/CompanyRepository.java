@@ -13,4 +13,8 @@ public class CompanyRepository {
     public List<Company> getAll() {
         return companies;
     }
+
+    public Company getById(int id) {
+        return null;
+    }
 }
