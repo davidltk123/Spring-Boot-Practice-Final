@@ -1,8 +1,8 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.Service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/employees")
 public class EmployeeController {
     private List<Employee> employees = new ArrayList<>();
+
+    @Autowired
     private EmployeeService employeeService;
 
     @GetMapping(params = "gender")
