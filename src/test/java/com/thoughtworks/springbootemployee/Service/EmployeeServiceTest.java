@@ -1,6 +1,5 @@
-package com.thoughtworks.springbootemployee;
+package com.thoughtworks.springbootemployee.Service;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
-import com.thoughtworks.springbootemployee.Service.EmployeeService;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
-import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import java.util.Arrays;
