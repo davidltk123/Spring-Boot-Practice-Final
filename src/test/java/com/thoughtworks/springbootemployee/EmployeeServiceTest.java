@@ -99,8 +99,21 @@ public class EmployeeServiceTest {
         verify(employeeRepository, times(1)).create(employeeArgumentCaptor.capture());
 
         //then
-        final Employee actual = employeeArgumentCaptor.getValue();
-        assertEquals(expected, actual);
+        final Employee employees = employeeArgumentCaptor.getValue();
+        assertEquals(expected, employees);
+    }
+
+    @Test
+    public void should_return_updated_employee_when_updaye_given_valid_employee_id() {
+        //given
+        final Employee expected = new Employee(1,"david",22,"male",11111);
+        when(employeeRepository.update(1)).thenReturn(expected);
+
+        //when
+        final Employee employees = employeeService.update(1);
+
+        //then
+        assertEquals(expected,employees);
     }
 
 }

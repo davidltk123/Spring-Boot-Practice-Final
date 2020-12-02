@@ -34,4 +34,8 @@ public class EmployeeRepository {
         this.employees.add(employee);
         return employee;
     }
+
+    public Employee update(Integer id) {
+        return null;
+    }
 }
