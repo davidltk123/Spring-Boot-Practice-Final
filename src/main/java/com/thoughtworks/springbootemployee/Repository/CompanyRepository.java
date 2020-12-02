@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class CompanyRepository {
@@ -24,6 +25,9 @@ public class CompanyRepository {
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
-        return null;
+        page = page - 1;
+        return companies.stream().skip(page * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }

@@ -16,6 +16,7 @@ public class CompanyService {
     public CompanyService(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
+
     public List<Company> getAll() {
         return companyRepository.getAll();
     }
@@ -29,6 +30,6 @@ public class CompanyService {
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
-        return null;
+        return companyRepository.getPaginatedAll(page, pageSize);
     }
 }
