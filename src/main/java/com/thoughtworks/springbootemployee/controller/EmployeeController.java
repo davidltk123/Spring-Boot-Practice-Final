@@ -14,8 +14,18 @@ public class EmployeeController {
     @GetMapping(
             params = "gender"
     )
-    public List<Employee> getAll(@RequestParam String gender) {
+    public List<Employee> getByGender(@RequestParam String gender) {
         return employees.stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
+    }
+
+    @GetMapping(
+            params = {"page", "pageSize"}
+    )
+    public List<Employee> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
+        page = page - 1;
+        return employees.stream().skip(page * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 
     @GetMapping
