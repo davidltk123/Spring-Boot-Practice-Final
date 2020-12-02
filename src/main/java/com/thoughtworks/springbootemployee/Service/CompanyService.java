@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee.Service;
 
 import com.thoughtworks.springbootemployee.Model.Company;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
-import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,6 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
     public List<Company> getAll() {
-        return null;
+        return companyRepository.getAll();
     }
 }
