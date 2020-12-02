@@ -12,7 +12,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository){
+    public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
@@ -30,7 +30,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
-        return employeeRepository.getPaginatedAll(page,pageSize);
+        return employeeRepository.getPaginatedAll(page, pageSize);
     }
 
     public Employee create(Employee employee) {
@@ -38,7 +38,7 @@ public class EmployeeService {
     }
 
     public Employee update(Integer id, Employee employeeUpdate) {
-        return employeeRepository.update(id,employeeUpdate);
+        return employeeRepository.update(id, employeeUpdate);
     }
 
     public void delete(Integer id) {

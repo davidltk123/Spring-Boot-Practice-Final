@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class EmployeeController {
 
     @GetMapping(params = {"page", "pageSize"})
     public List<Employee> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
-        return employeeService.getPaginatedAll(page,pageSize);
+        return employeeService.getPaginatedAll(page, pageSize);
     }
 
     @GetMapping
