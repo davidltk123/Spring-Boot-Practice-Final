@@ -15,6 +15,11 @@ public class EmployeeController {
         return employees;
     }
 
+    @GetMapping("/{employeeId}")
+    public Employee getEmployee(@PathVariable Integer employeeId) {
+        return employees.stream().filter(employee -> employeeId.equals(employee.getId())).findFirst().get();
+    }
+
     @PostMapping
     public Employee create(@RequestBody Employee employee) {
         employees.add(employee);
