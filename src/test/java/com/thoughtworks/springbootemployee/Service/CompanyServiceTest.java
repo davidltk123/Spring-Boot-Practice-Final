@@ -120,4 +120,21 @@ public class CompanyServiceTest {
         final Company company = companyArgumentCaptor.getValue();
         assertEquals(expected, company);
     }
+
+    @Test
+    public void should_return_updated_company_when_update_given_valid_company_id() {
+        //given
+        final List<Employee> employees = Arrays.asList(
+                new Employee(1, "david", 22, "male", 11111),
+                new Employee(1, "peter", 22, "male", 11111)
+        );
+        final Company expected = new Company(1, "alibaba", 2, employees);
+        when(companyRepository.update(1, expected)).thenReturn(expected);
+
+        //when
+        final Company companies = companyService.update(1, expected);
+
+        //then
+        assertEquals(expected, companies);
+    }
 }
