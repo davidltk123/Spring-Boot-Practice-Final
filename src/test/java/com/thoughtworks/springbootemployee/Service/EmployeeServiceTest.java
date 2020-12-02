@@ -8,6 +8,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
@@ -66,6 +67,18 @@ public class EmployeeServiceTest {
 
         //then
         assertEquals(expected,employees);
+    }
+
+    @Test
+    public void should_return_null_when_get_by_id_given_invalid_employee_id() {
+        //given
+        when(employeeRepository.getById(999)).thenReturn(null);
+
+        //when
+        final Employee employees = employeeService.getById(999);
+
+        //then
+        assertNull(employees);
     }
 
     @Test
