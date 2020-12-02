@@ -45,5 +45,8 @@ public class CompanyRepository {
     }
 
     public void delete(Integer id) {
+        companies.stream().filter(company -> id.equals(company.getId())).findFirst().ifPresent(company -> {
+            companies.remove(company);
+        });
     }
 }

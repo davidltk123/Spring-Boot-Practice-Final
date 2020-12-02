@@ -5,15 +5,15 @@ import java.util.List;
 public class Company {
     private Integer id;
     private String companyName;
-    private Integer employeeNumber;
+    private Integer employeesNumber;
     private List<Employee> employees;
 
     public Company(){}
 
-    public Company(Integer id, String companyName, Integer employeeNumber, List<Employee> employees) {
+    public Company(Integer id, String companyName, Integer employeesNumber, List<Employee> employees) {
         this.id = id;
         this.companyName = companyName;
-        this.employeeNumber = employeeNumber;
+        this.employeesNumber = employeesNumber;
         this.employees = employees;
     }
 
@@ -25,8 +25,8 @@ public class Company {
         return companyName;
     }
 
-    public Integer getEmployeeNumber() {
-        return employeeNumber;
+    public Integer getEmployeesNumber() {
+        return employeesNumber;
     }
 
     public List<Employee> getEmployees() {
