@@ -11,11 +11,16 @@ import java.util.stream.Collectors;
 public class EmployeeController {
     private List<Employee> employees = new ArrayList<>();
 
-    @GetMapping
-    public List<Employee> getAll(@RequestParam(name = "gender", required = false) String gender) {
-        if (gender == null)
-            return employees;
+    @GetMapping(
+            params = "gender"
+    )
+    public List<Employee> getAll(@RequestParam String gender) {
         return employees.stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
+    }
+
+    @GetMapping
+    public List<Employee> getAll() {
+        return employees;
     }
 
     @GetMapping("/{employeeId}")
