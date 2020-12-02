@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.Service;
 
 import com.thoughtworks.springbootemployee.Model.Company;
+import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,9 @@ public class CompanyService {
 
     public Company getById(Integer id) {
         return companyRepository.getById(id);
+    }
+
+    public List<Employee> getEmployeesByCompanyId(Integer id) {
+        return null;
     }
 }

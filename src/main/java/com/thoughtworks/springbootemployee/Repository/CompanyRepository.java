@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.Repository;
 
 import com.thoughtworks.springbootemployee.Model.Company;
+import com.thoughtworks.springbootemployee.Model.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,5 +17,9 @@ public class CompanyRepository {
 
     public Company getById(Integer id) {
         return companies.stream().filter(company -> id.equals(company.getId())).findFirst().orElse(null);
+    }
+
+    public List<Employee> getEmployeesByCompanyId(Integer id) {
+        return null;
     }
 }
