@@ -32,6 +32,7 @@ public class CompanyRepository {
     }
 
     public Company create(Company company) {
-        return null;
+        companies.add(company);
+        return company;
     }
 }
