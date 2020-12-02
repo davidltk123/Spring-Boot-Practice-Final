@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.Service;
 import com.thoughtworks.springbootemployee.Model.Company;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
-import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,5 +74,26 @@ public class CompanyServiceTest {
 
         //then
         assertEquals(expectedEmployees,employees);
+    }
+
+    @Test
+    public void should_return_2_companies_when_get_paginated_all_given_3_companies_and_page_is_1_and_page_size_is_2() {
+        //given
+        final List<Employee> employees = Arrays.asList(
+                new Employee(1,"david",22,"male",11111),
+                new Employee(1,"peter",22,"male",11111)
+        );
+        final List<Company> expected = Arrays.asList(
+                new Company(1,"alibaba",2,employees),
+                new Company(1,"blibaba",2,employees),
+                new Company(1,"clibaba",2,employees)
+        );
+        when(companyRepository.getPaginatedAll(1,2)).thenReturn(expected);
+
+        //when
+        final List<Company> companies = companyService.getPaginatedAll(1,2);
+
+        //then
+        assertEquals(expected,companies);
     }
 }

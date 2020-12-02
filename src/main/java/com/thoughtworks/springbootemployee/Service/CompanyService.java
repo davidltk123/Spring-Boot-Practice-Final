@@ -27,4 +27,8 @@ public class CompanyService {
     public List<Employee> getEmployeesByCompanyId(Integer id) {
         return companyRepository.getEmployeesByCompanyId(id);
     }
+
+    public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
+        return null;
+    }
 }
