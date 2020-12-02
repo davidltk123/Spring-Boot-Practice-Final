@@ -107,10 +107,10 @@ public class EmployeeServiceTest {
     public void should_return_updated_employee_when_updaye_given_valid_employee_id() {
         //given
         final Employee expected = new Employee(1,"david",22,"male",11111);
-        when(employeeRepository.update(1)).thenReturn(expected);
+        when(employeeRepository.update(1, expected )).thenReturn(expected);
 
         //when
-        final Employee employees = employeeService.update(1);
+        final Employee employees = employeeService.update(1,expected);
 
         //then
         assertEquals(expected,employees);

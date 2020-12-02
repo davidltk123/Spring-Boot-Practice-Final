@@ -35,7 +35,11 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public Employee update(Integer id) {
-        return null;
+    public Employee update(Integer id, Employee employeeUpdate) {
+        employees.stream().filter(employee -> id.equals(employee.getId())).findFirst().ifPresent(employee -> {
+            employees.remove(employee);
+            employees.add(employeeUpdate);
+        });
+        return employeeUpdate;
     }
 }

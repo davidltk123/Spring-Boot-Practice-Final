@@ -37,7 +37,7 @@ public class EmployeeService {
         return employeeRepository.create(employee);
     }
 
-    public Employee update(Integer id) {
-        return null;
+    public Employee update(Integer id, Employee employeeUpdate) {
+        return employeeRepository.update(id,employeeUpdate);
     }
 }
