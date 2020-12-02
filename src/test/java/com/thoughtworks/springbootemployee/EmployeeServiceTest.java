@@ -6,11 +6,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.mockito.Mockito.when;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,7 +72,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_2_employees_when_get_paginated_all_given_3_employees_and_page_is_1_and_page_size_is_2() {
+    public void should_return_2_employees_when_get_paginated_all_given_3_employees_and_page_is_1_and_page_size_is_2() {
         //given
         final List<Employee> expected = Arrays.asList(
                 new Employee(1,"david",22,"male",11111),
@@ -82,6 +85,22 @@ public class EmployeeServiceTest {
 
         //then
         assertEquals(expected,employees);
+    }
+
+    @Test
+    public void should_return_created_employee_when_create_given_no_employee_in_the_database() {
+        //given
+        final Employee expected = new Employee(1,"david",22,"male",11111);
+        when(employeeRepository.create(expected)).thenReturn(expected);
+
+        //when
+        employeeService.create(expected);
+        ArgumentCaptor<Employee> employeeArgumentCaptor = ArgumentCaptor.forClass(Employee.class);
+        verify(employeeRepository, times(1)).create(employeeArgumentCaptor.capture());
+
+        //then
+        final Employee actual = employeeArgumentCaptor.getValue();
+        assertEquals(expected, actual);
     }
 
 }

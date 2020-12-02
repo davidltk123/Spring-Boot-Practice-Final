@@ -29,4 +29,8 @@ public class EmployeeRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public Employee create(Employee employee) {
+        return null;
+    }
 }

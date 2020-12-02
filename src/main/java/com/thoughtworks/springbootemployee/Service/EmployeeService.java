@@ -32,4 +32,8 @@ public class EmployeeService {
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
         return employeeRepository.getPaginatedAll(page,pageSize);
     }
+
+    public Employee create(Employee employee) {
+        return null;
+    }
 }
