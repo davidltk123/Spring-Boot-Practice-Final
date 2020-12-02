@@ -13,16 +13,12 @@ public class EmployeeController {
     private List<Employee> employees = new ArrayList<>();
     private EmployeeService employeeService;
 
-    @GetMapping(
-            params = "gender"
-    )
+    @GetMapping(params = "gender")
     public List<Employee> getByGender(@RequestParam String gender) {
         return employees.stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
     }
 
-    @GetMapping(
-            params = {"page", "pageSize"}
-    )
+    @GetMapping(params = {"page", "pageSize"})
     public List<Employee> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
         page = page - 1;
         return employees.stream().skip(page * pageSize)
