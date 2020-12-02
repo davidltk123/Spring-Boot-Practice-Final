@@ -32,4 +32,8 @@ public class CompanyService {
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
         return companyRepository.getPaginatedAll(page, pageSize);
     }
+
+    public Company create(Company company) {
+        return null;
+    }
 }

@@ -97,8 +97,8 @@ public class EmployeeServiceTest {
         verify(employeeRepository, times(1)).create(employeeArgumentCaptor.capture());
 
         //then
-        final Employee employees = employeeArgumentCaptor.getValue();
-        assertEquals(expected, employees);
+        final Employee employee = employeeArgumentCaptor.getValue();
+        assertEquals(expected, employee);
     }
 
     @Test

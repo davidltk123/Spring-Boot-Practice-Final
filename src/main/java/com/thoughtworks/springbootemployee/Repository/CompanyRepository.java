@@ -30,4 +30,8 @@ public class CompanyRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public Company create(Company company) {
+        return null;
+    }
 }
