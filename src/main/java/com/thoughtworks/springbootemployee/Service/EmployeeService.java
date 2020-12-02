@@ -30,6 +30,6 @@ public class EmployeeService {
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
-        return null;
+        return employeeRepository.getPaginatedAll(page,pageSize);
     }
 }

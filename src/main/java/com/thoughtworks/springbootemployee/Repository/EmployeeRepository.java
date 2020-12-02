@@ -24,6 +24,9 @@ public class EmployeeRepository {
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
-        return null;
+        page = page - 1;
+        return employees.stream().skip(page * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 }

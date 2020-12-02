@@ -23,10 +23,7 @@ public class EmployeeController {
 
     @GetMapping(params = {"page", "pageSize"})
     public List<Employee> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
-        page = page - 1;
-        return employees.stream().skip(page * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        return employeeService.getPaginatedAll(page,pageSize);
     }
 
     @GetMapping
