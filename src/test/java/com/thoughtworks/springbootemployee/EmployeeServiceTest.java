@@ -68,4 +68,20 @@ public class EmployeeServiceTest {
         assertEquals(expected,employees);
     }
 
+    @Test
+    public void should_2_employees_when_get_paginated_all_given_3_employees_and_page_is_1_and_page_size_is_2() {
+        //given
+        final List<Employee> expected = Arrays.asList(
+                new Employee(1,"david",22,"male",11111),
+                new Employee(1,"peter",22,"male",11111)
+        );
+        when(employeeRepository.getPaginatedAll(1,2)).thenReturn(expected);
+
+        //when
+        final List<Employee>  employees = employeeService.getPaginatedAll(1,2);
+
+        //then
+        assertEquals(expected,employees);
+    }
+
 }

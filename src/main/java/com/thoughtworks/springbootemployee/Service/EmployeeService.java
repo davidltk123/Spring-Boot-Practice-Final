@@ -28,4 +28,8 @@ public class EmployeeService {
     public Employee getById(Integer id) {
         return employeeRepository.getById(id);
     }
+
+    public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
+        return null;
+    }
 }

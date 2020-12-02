@@ -22,4 +22,8 @@ public class EmployeeRepository {
     public Employee getById(Integer id) {
         return employees.stream().filter(employee -> id.equals(employee.getId())).findFirst().orElse(null);
     }
+
+    public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
+        return null;
+    }
 }
