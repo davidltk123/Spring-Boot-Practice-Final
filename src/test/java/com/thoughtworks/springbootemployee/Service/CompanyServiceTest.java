@@ -33,7 +33,7 @@ public class CompanyServiceTest {
                 new Employee(1,"peter",22,"male",11111)
         );
         final List<Company> expected = Arrays.asList(
-                new Company("alibaba",2,employees)
+                new Company(1,"alibaba",2,employees)
         );
         when(companyRepository.getAll()).thenReturn(expected);
 
@@ -51,7 +51,7 @@ public class CompanyServiceTest {
                 new Employee(1,"david",22,"male",11111),
                 new Employee(1,"peter",22,"male",11111)
         );
-        final Company expected = new Company("alibaba",2,employees);
+        final Company expected = new Company(1, "alibaba",2,employees);
         when(companyRepository.getById(1)).thenReturn(expected);
 
         //when
