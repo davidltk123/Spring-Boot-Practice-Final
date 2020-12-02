@@ -40,7 +40,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_all_male_employees_when_get_all_given_gender_is_male() {
+    public void should_return_all_male_employees_when_get_by_gender_given_gender_is_male() {
         //given
         final List<Employee> expected = Arrays.asList(
                 new Employee(1,"david",22,"male",11111),

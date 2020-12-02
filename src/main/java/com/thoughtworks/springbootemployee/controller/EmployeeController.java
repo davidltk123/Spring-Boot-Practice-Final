@@ -35,8 +35,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public Employee getEmployee(@PathVariable Integer employeeId) {
-        //change null to exception
+    public Employee getById(@PathVariable Integer employeeId) {
         return employees.stream().filter(employee -> employeeId.equals(employee.getId())).findFirst().orElse(null);
     }
 
