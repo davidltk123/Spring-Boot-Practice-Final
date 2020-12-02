@@ -10,8 +10,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.verify;
@@ -108,16 +106,14 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_updated_employee_when_update_given_valid_employee_id() {
         //given
-        final Employee expected = new Employee(1,"david",44,"male",11111);
-        final Employee updatedExpected = new Employee(1,"david",22,"male",11111);
-        when(employeeRepository.update(1, updatedExpected )).thenReturn(updatedExpected);
+        final Employee expected = new Employee(1,"david",22,"male",11111);
+        when(employeeRepository.update(1, expected )).thenReturn(expected);
 
         //when
-        final Employee employees = employeeService.update(1,updatedExpected);
+        final Employee employees = employeeService.update(1,expected);
 
         //then
-        assertEquals(updatedExpected,employees);
-        assertNotEquals(expected.getAge(),updatedExpected.getAge());
+        assertEquals(expected,employees);
     }
 
 }
