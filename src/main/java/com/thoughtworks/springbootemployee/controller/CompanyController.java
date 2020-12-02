@@ -27,6 +27,11 @@ public class CompanyController {
         return companyService.getById(companyId);
     }
 
+    @GetMapping("/{companyId}/employees")
+    public List<Employee> getEmployeesByCompanyId(@PathVariable Integer companyId) {
+        return companyService.getEmployeesByCompanyId(companyId);
+    }
+
     @PostMapping
     public Company create(@RequestBody Company company) {
         companies.add(company);

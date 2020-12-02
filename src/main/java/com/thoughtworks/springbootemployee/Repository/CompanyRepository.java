@@ -20,6 +20,6 @@ public class CompanyRepository {
     }
 
     public List<Employee> getEmployeesByCompanyId(Integer id) {
-        return null;
+        return companies.stream().filter(company -> id.equals(company.getId())).findFirst().orElse(null).getEmployees();
     }
 }
