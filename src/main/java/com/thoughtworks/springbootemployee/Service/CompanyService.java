@@ -37,7 +37,7 @@ public class CompanyService {
         return companyRepository.create(company);
     }
 
-    public Company update(Integer id,Company updateCompany) {
-        return null;
+    public Company update(Integer id, Company companyUpdate) {
+        return companyRepository.update(id, companyUpdate);
     }
 }

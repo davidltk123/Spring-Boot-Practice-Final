@@ -36,7 +36,11 @@ public class CompanyRepository {
         return company;
     }
 
-    public Company update(Integer id, Company updateCompany) {
-        return null;
+    public Company update(Integer id, Company companyUpdate) {
+        companies.stream().filter(company -> id.equals(company.getId())).findFirst().ifPresent(company -> {
+            companies.remove(company);
+            companies.add(companyUpdate);
+        });
+        return companyUpdate;
     }
 }
