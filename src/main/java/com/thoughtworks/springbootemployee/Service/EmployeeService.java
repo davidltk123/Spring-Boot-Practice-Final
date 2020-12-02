@@ -24,4 +24,8 @@ public class EmployeeService {
     public List<Employee> getByGender(String gender) {
         return employeeRepository.getByGender(gender);
     }
+
+    public Employee getById(int id) {
+        return null;
+    }
 }

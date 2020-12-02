@@ -55,4 +55,17 @@ public class EmployeeServiceTest {
         assertEquals(expected,employees);
     }
 
+    @Test
+    public void should_return_specific_employee_when_get_by_id_given_valid_employee_id() {
+        //given
+        final Employee expected = new Employee(1,"david",22,"male",11111);
+        when(employeeRepository.getById(1)).thenReturn(expected);
+
+        //when
+        final Employee employees = employeeService.getById(1);
+
+        //then
+        assertEquals(expected,employees);
+    }
+
 }

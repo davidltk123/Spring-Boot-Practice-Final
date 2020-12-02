@@ -18,4 +18,8 @@ public class EmployeeRepository {
     public List<Employee> getByGender(String gender) {
         return employees.stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
     }
+
+    public Employee getById(int id) {
+        return null;
+    }
 }
