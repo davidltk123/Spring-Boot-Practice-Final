@@ -48,9 +48,7 @@ public class EmployeeController {
 
     @DeleteMapping("/{employeeId}")
     public void delete(@PathVariable Integer employeeId) {
-        employees.stream().filter(employee -> employeeId.equals(employee.getId())).findFirst().ifPresent(employee -> {
-            employees.remove(employee);
-        });
+        employeeService.delete(employeeId);
     }
 }
 
