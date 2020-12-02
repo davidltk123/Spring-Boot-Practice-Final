@@ -43,4 +43,7 @@ public class CompanyRepository {
         });
         return companyUpdate;
     }
+
+    public void delete(Integer id) {
+    }
 }

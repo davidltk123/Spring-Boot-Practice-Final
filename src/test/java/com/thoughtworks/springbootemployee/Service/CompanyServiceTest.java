@@ -137,4 +137,20 @@ public class CompanyServiceTest {
         //then
         assertEquals(expected, companies);
     }
+
+    @Test
+    public void should_delete_all_employees_of_a_specifc_company_when_delete_given_valid_company_id() {
+        //given
+        final List<Employee> employees = Arrays.asList(
+                new Employee(1, "david", 22, "male", 11111),
+                new Employee(1, "peter", 22, "male", 11111)
+        );
+        final Company expected = new Company(1, "alibaba", 2, employees);
+
+        //when
+        companyService.delete(expected.getId());
+
+        //then
+        verify(companyRepository, times(1)).delete(expected.getId());
+    }
 }
