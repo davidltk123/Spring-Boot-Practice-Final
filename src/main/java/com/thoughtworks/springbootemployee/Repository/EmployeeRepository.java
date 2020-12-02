@@ -9,7 +9,12 @@ import java.util.List;
 @Repository
 public class EmployeeRepository {
     private List<Employee> employees = new ArrayList<>();
+
     public List<Employee> getAll() {
         return employees;
+    }
+
+    public List<Employee> getByGender(String male) {
+        return null;
     }
 }

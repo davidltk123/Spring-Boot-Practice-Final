@@ -25,11 +25,31 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_all_employees_when_get_all_given_all_employees() {
         //given
-        final List<Employee> expected = Arrays.asList(new Employee(1,"david",22,"male",11111));
+        final List<Employee> expected = Arrays.asList(
+                new Employee(1,"david",22,"male",11111),
+                new Employee(1,"peter",22,"male",11111)
+
+        );
         when(employeeRepository.getAll()).thenReturn(expected);
 
         //when
         final List<Employee> employees = employeeService.getAll();
+
+        //then
+        assertEquals(expected,employees);
+    }
+
+    @Test
+    public void should_return_all_male_employees_when_get_all_given_gender_is_male() {
+        //given
+        final List<Employee> expected = Arrays.asList(
+                new Employee(1,"david",22,"male",11111),
+                new Employee(1,"peter",22,"male",11111)
+        );
+        when(employeeRepository.getByGender("male")).thenReturn(expected);
+
+        //when
+        final List<Employee> employees = employeeService.getByGender("male");
 
         //then
         assertEquals(expected,employees);

@@ -19,4 +19,9 @@ public class EmployeeService {
     public List<Employee> getAll() {
         return employeeRepository.getAll();
     }
+
+
+    public List<Employee> getByGender(String male) {
+        return null;
+    }
 }
