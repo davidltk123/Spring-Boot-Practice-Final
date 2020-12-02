@@ -36,7 +36,7 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}")
     public Employee getById(@PathVariable Integer employeeId) {
-        return employees.stream().filter(employee -> employeeId.equals(employee.getId())).findFirst().orElse(null);
+        return employeeService.getById(employeeId);
     }
 
     @PostMapping

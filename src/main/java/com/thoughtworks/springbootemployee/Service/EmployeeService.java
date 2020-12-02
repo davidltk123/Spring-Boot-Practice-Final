@@ -25,7 +25,7 @@ public class EmployeeService {
         return employeeRepository.getByGender(gender);
     }
 
-    public Employee getById(int id) {
-        return null;
+    public Employee getById(Integer id) {
+        return employeeRepository.getById(id);
     }
 }
