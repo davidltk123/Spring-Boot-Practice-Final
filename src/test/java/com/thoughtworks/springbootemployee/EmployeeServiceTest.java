@@ -106,7 +106,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_updated_employee_when_updaye_given_valid_employee_id() {
+    public void should_return_updated_employee_when_update_given_valid_employee_id() {
         //given
         final Employee expected = new Employee(1,"david",44,"male",11111);
         final Employee updatedExpected = new Employee(1,"david",22,"male",11111);
