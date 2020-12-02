@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.Service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/employees")
 public class EmployeeController {
     private List<Employee> employees = new ArrayList<>();
+    private EmployeeService employeeService;
 
     @GetMapping(
             params = "gender"
@@ -30,7 +32,7 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAll() {
-        return employees;
+        return employeeService.getAll();
     }
 
     @GetMapping("/{employeeId}")
