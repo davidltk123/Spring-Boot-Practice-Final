@@ -31,6 +31,7 @@ public class EmployeeRepository {
     }
 
     public Employee create(Employee employee) {
-        return null;
+        this.employees.add(employee);
+        return employee;
     }
 }
