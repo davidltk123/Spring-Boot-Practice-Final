@@ -4,7 +4,6 @@ import com.thoughtworks.springbootemployee.Model.Employee;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class EmployeeRepository {
@@ -31,7 +30,7 @@ public class EmployeeRepository {
         return employeeUpdate;
     }
 
-    public void delete(Integer id) {
+    public void delete(String id) {
         employees.stream().filter(employee -> id.equals(employee.getId())).findFirst().ifPresent(employee -> {
             employees.remove(employee);
         });

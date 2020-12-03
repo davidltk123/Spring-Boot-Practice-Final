@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -31,22 +32,22 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public Employee getById(@PathVariable Integer employeeId) {
+    public Employee getById(@PathVariable String employeeId) {
         return employeeService.getById(employeeId);
     }
 
     @PostMapping
     public Employee create(@RequestBody Employee employee) {
-        return employeeService.create(employee);
+        return employeeService.save(employee);
     }
 
     @PutMapping("/{employeeId}")
-    public Employee update(@PathVariable Integer employeeId, @RequestBody Employee employeeUpdate) {
+    public Employee update(@PathVariable String employeeId, @RequestBody Employee employeeUpdate) {
         return employeeService.update(employeeId, employeeUpdate);
     }
 
     @DeleteMapping("/{employeeId}")
-    public void delete(@PathVariable Integer employeeId) {
+    public void delete(@PathVariable String employeeId) {
         employeeService.delete(employeeId);
     }
 }

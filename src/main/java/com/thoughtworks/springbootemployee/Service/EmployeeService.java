@@ -1,50 +1,54 @@
 package com.thoughtworks.springbootemployee.Service;
 
-import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.Model.Employee;
+import com.thoughtworks.springbootemployee.Repository.EmployeeRepository1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeRepository1 employeeRepository;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository1 employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
     public List<Employee> getAll() {
-        return employeeRepository.getAll();
+        return employeeRepository.findAll();
     }
-
 
     public List<Employee> getByGender(String gender) {
-        return employeeRepository.getAll().stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
+        return employeeRepository.findAllByGender(gender);
     }
 
-    public Employee getById(Integer id) {
-        return employeeRepository.getById(id);
+    public Employee getById(String id) {
+        return employeeRepository.findById(id).orElse(null);
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
         page = page - 1;
-        return employeeRepository.getAll().stream().skip(page * pageSize)
+        return employeeRepository.findAll().stream().skip(page * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
 
-    public Employee create(Employee employee) {
-        return employeeRepository.create(employee);
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
-    public Employee update(Integer id, Employee employeeUpdate) {
-        return employeeRepository.update(id, employeeUpdate);
+    public Employee update(String id, Employee employeeUpdate) {
+        if(getById(id) != null){
+            employeeUpdate.setId(id);
+            return employeeRepository.save(employeeUpdate);
+        }
+        return null;
     }
 
-    public void delete(Integer id) {
-        employeeRepository.delete(id);
+    public void delete(String id) {
+        employeeRepository.deleteById(id);
     }
 }
