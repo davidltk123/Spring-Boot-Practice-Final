@@ -3,7 +3,10 @@ package com.thoughtworks.springbootemployee.Service;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository1;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +30,12 @@ public class EmployeeService {
     }
 
     public Employee getById(String id) {
-        return employeeRepository.findById(id).orElse(null);
+        try{
+            return employeeRepository.findById(id).orElse(null);
+        }
+        catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found!");
+        }
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
@@ -50,6 +58,8 @@ public class EmployeeService {
     }
 
     public void delete(String id) {
-        employeeRepository.deleteById(id);
+        if(getById(id) != null){
+            employeeRepository.deleteById(id);
+        }
     }
 }

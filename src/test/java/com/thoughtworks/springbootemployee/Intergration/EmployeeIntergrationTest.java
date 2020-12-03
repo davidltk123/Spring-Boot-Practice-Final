@@ -64,6 +64,14 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
+    public void should_return_404_not_found_when_get_by_id_given_invalid_employee_id() throws Exception {
+        //when
+        //then
+        mockMvc.perform(get("/employees/" + "999999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void should_return_all_male_employees_when_get_by_gender_given_gender_is_male() throws Exception {
         //given
         Employee employee1 = new Employee("David", 18, "male", 10000);
