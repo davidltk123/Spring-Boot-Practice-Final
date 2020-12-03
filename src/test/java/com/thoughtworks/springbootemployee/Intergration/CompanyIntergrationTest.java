@@ -150,4 +150,20 @@ public class CompanyIntergrationTest {
         assertEquals(2, companies.get(0).getEmployeesNumber());
         assertEquals(Arrays.asList("1","2"), companies.get(0).getEmployeesId());
     }
+
+    @Test
+    public void should_delete_specific_company_when_delete_given_valid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1","2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+
+        //when
+        //then
+        mockMvc.perform(delete("/companies/" + company.getId()))
+                .andExpect(status().isOk());
+
+        List<Company> companies = companyRepository.findAll();
+        assertEquals(0, companies.size());
+    }
 }
