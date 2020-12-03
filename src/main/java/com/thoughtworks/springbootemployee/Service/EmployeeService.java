@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.Model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -21,7 +22,7 @@ public class EmployeeService {
 
 
     public List<Employee> getByGender(String gender) {
-        return employeeRepository.getByGender(gender);
+        return employeeRepository.getAll().stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
     }
 
     public Employee getById(Integer id) {

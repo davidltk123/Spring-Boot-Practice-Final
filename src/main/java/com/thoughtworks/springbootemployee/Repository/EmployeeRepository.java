@@ -14,9 +14,9 @@ public class EmployeeRepository {
         return employees;
     }
 
-    public List<Employee> getByGender(String gender) {
-        return employees.stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
-    }
+//    public List<Employee> getByGender(String gender) {
+//        return employees.stream().filter(employee -> employee.getGender().equals(gender)).collect(Collectors.toList());
+//    }
 
     public Employee getById(Integer id) {
         return employees.stream().filter(employee -> id.equals(employee.getId())).findFirst().orElse(null);

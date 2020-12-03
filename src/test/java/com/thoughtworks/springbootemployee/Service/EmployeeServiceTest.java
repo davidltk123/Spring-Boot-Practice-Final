@@ -2,6 +2,8 @@ package com.thoughtworks.springbootemployee.Service;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -43,17 +45,17 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_all_male_employees_when_get_by_gender_given_gender_is_male() {
         //given
-        final List<Employee> expected = Arrays.asList(
+        final List<Employee> allEmployees = Arrays.asList(
                 new Employee(1,"david",22,"male",11111),
-                new Employee(1,"peter",22,"male",11111)
+                new Employee(1,"amy",22,"female",11111)
         );
-        when(employeeRepository.getByGender("male")).thenReturn(expected);
+        when(employeeRepository.getAll()).thenReturn(allEmployees);
 
         //when
         final List<Employee> employees = employeeService.getByGender("male");
 
         //then
-        assertEquals(expected,employees);
+        assertEquals(0, employees.stream().filter(employee -> employee.getGender().equals("female")).count());
     }
 
     @Test
