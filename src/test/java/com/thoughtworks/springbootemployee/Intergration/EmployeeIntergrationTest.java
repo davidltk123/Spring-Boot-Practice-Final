@@ -106,7 +106,7 @@ public class EmployeeIntergrationTest {
         employeeRepository.save(employee3);
         //when
         //then
-        mockMvc.perform(get("/employees").param("page", String.valueOf(1)).param("pageSize",String.valueOf(2)))
+        mockMvc.perform(get("/employees").param("page", String.valueOf(0)).param("pageSize",String.valueOf(2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].name").value("David"))

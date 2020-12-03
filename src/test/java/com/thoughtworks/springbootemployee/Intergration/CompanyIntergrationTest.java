@@ -95,7 +95,7 @@ public class CompanyIntergrationTest {
         companyRepository.save(company3);
         //when
         //then
-        mockMvc.perform(get("/companies").param("page", String.valueOf(1)).param("pageSize",String.valueOf(2)))
+        mockMvc.perform(get("/companies").param("page", String.valueOf(0)).param("pageSize",String.valueOf(2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("alibaba"))
