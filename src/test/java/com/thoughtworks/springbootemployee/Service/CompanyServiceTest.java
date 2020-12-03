@@ -157,6 +157,20 @@ public class CompanyServiceTest {
     }
 
     @Test
+    public void should_return_null_when_update_given_invalid_company_id() {
+        //given
+        final List<String> employeeIds = Arrays.asList("1","2");
+        final Company company = new Company("alibaba", 2, employeeIds);
+        when(companyRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+
+        //when
+        final Company actual = companyService.update("999",company);
+
+        //then
+        assertNull(actual);
+    }
+
+    @Test
     public void should_delete_all_employees_of_a_specifc_company_when_delete_given_valid_company_id() {
         //given
         final List<String> employeeIds = Arrays.asList("1","2");
