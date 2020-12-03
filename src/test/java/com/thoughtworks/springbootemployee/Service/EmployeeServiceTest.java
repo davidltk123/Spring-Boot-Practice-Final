@@ -123,15 +123,28 @@ public class EmployeeServiceTest {
     public void should_return_updated_employee_when_update_given_valid_employee_id() {
         //given
         final Employee originalEmployee = new Employee("david",22,"male",11111);
-        final Employee updatedEmployee = new Employee("david",22,"male",11111);
+        final Employee updatedEmployee = new Employee("david",44,"male",11111);
         when(employeeRepository.findById("1")).thenReturn(Optional.of(originalEmployee));
         when(employeeRepository.save(updatedEmployee)).thenReturn(updatedEmployee);
 
         //when
-        final Employee employees = employeeService.update("1",updatedEmployee);
+        final Employee employee = employeeService.update("1",updatedEmployee);
 
         //then
-        assertEquals(updatedEmployee,employees);
+        assertEquals(updatedEmployee,employee);
+    }
+
+    @Test
+    public void should_return_null_when_update_given_invalid_employee_id() {
+        //given
+        final Employee employee = new Employee("david",44,"male",11111);
+        when(employeeRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+
+        //when
+        final Employee actual = employeeService.update("999",employee);
+
+        //then
+        assertNull(actual);
     }
 
     @Test
