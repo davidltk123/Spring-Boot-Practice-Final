@@ -67,4 +67,30 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.employeesId[1]").value("2"));
 
     }
+
+    @Test
+    public void should_return_2_companies_when_get_by_paging_given_3_companies_and_page_number_is_1_and_pagesize_is_2() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1","2");
+        Company company1 = new Company("alibaba", 2, employeeIds);
+        Company company2 = new Company("blibaba", 2, employeeIds);
+        Company company3 = new Company("clibaba", 2, employeeIds);
+        companyRepository.save(company1);
+        companyRepository.save(company2);
+        companyRepository.save(company3);
+        //when
+        //then
+        mockMvc.perform(get("/companies").param("page", String.valueOf(1)).param("pageSize",String.valueOf(2)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").isString())
+                .andExpect(jsonPath("$[0].companyName").value("alibaba"))
+                .andExpect(jsonPath("$[0].employeesNumber").value(2))
+                .andExpect(jsonPath("$[0].employeesId[0]").value("1"))
+                .andExpect(jsonPath("$[0].employeesId[1]").value("2"))
+                .andExpect(jsonPath("$[1].id").isString())
+                .andExpect(jsonPath("$[1].companyName").value("blibaba"))
+                .andExpect(jsonPath("$[1].employeesNumber").value(2))
+                .andExpect(jsonPath("$[1].employeesId[0]").value("1"))
+                .andExpect(jsonPath("$[1].employeesId[1]").value("2"));
+    }
 }
