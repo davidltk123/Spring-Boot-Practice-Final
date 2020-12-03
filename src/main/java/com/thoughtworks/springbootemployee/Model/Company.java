@@ -17,8 +17,7 @@ public class Company {
     public Company() {
     }
 
-    public Company(String id, String companyName, Integer employeesNumber, List<String> employees) {
-        this.id = id;
+    public Company(String companyName, Integer employeesNumber, List<String> employees) {
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
         this.employeesId = employees;
@@ -55,6 +54,11 @@ public class Company {
         }
 
         final Company other = (Company) obj;
-        return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
+
+        if(this.id != null && other.id != null){
+            return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
+        }
+
+        return this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
     }
 }
