@@ -158,4 +158,35 @@ public class EmployeeIntergrationTest {
         List<Employee> employees = employeeRepository.findAll();
         assertEquals(0, employees.size());
     }
+
+    @Test
+    public void should_return_updated_employee_when_update_given_employee() throws Exception {
+        //given
+        Employee employee = new Employee("David", 18, "male", 10000);
+        employeeRepository.save(employee);
+        String updateEmployeeAsJson = "{\n" +
+                "        \"name\": \"David\",\n" +
+                "        \"age\": 18,\n" +
+                "        \"gender\": \"male\",\n" +
+                "        \"salary\": 1000000\n" +
+                "}";
+
+        //when
+        //then
+        mockMvc.perform(put("/employees/" + employee.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateEmployeeAsJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.name").value("David"))
+                .andExpect(jsonPath("$.age").value(18))
+                .andExpect(jsonPath("$.gender").value("male"))
+                .andExpect(jsonPath("$.salary").value(1000000));
+
+        List<Employee> employees = employeeRepository.findAll();
+        assertEquals("David", employees.get(0).getName());
+        assertEquals(18, employees.get(0).getAge());
+        assertEquals("male", employees.get(0).getGender());
+        assertEquals(1000000, employees.get(0).getSalary());
+    }
 }
