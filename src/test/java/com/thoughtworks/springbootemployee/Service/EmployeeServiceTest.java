@@ -140,6 +140,7 @@ public class EmployeeServiceTest {
     public void should_delete_specific_employee_when_delete_given_valid_employee_id() {
         //given
         final Employee expected = new Employee("david",22,"male",11111);
+        when(employeeRepository.findById("1")).thenReturn(Optional.of(expected));
 
         //when
         employeeService.delete("1");

@@ -134,6 +134,7 @@ public class CompanyServiceTest {
         //given
         final List<String> employeeIds = Arrays.asList("1","2");
         final Company expected = new Company("alibaba", 2, employeeIds);
+        when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(expected));
 
         //when
         companyService.delete("1");
