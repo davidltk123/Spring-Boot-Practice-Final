@@ -122,4 +122,32 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[1].gender").value("female"))
                 .andExpect(jsonPath("$[1].salary").value(10000));
     }
+
+    @Test
+    public void should_return_created_company_when_create_given_company() throws Exception {
+        //given
+        String companyAsJson = "{\n" +
+                "    \"companyName\": \"alibaba\",\n" +
+                "    \"employeesNumber\": 2,\n" +
+                "    \"employeesId\": [\"1\",\"2\"]\n" +
+                "}";
+
+        //when
+        //then
+        mockMvc.perform(post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(companyAsJson))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.companyName").value("alibaba"))
+                .andExpect(jsonPath("$.employeesNumber").value(2))
+                .andExpect(jsonPath("$.employeesId[0]").value("1"))
+                .andExpect(jsonPath("$.employeesId[1]").value("2"));
+
+        List<Company> companies = companyRepository.findAll();
+        assertEquals(1, companies.size());
+        assertEquals("alibaba", companies.get(0).getCompanyName());
+        assertEquals(2, companies.get(0).getEmployeesNumber());
+        assertEquals(Arrays.asList("1","2"), companies.get(0).getEmployeesId());
+    }
 }
