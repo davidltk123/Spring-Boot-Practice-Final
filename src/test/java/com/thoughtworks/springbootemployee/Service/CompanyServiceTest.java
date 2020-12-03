@@ -88,13 +88,13 @@ public class CompanyServiceTest {
                 new Company(1, "blibaba", 2, employees),
                 new Company(1, "clibaba", 2, employees)
         );
-        when(companyRepository.getPaginatedAll(1, 2)).thenReturn(expected);
+        when(companyRepository.getAll()).thenReturn(expected);
 
         //when
         final List<Company> companies = companyService.getPaginatedAll(1, 2);
 
         //then
-        assertEquals(expected, companies);
+        assertEquals(2, companies.size());
     }
 
     @Test

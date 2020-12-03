@@ -6,6 +6,7 @@ import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -29,7 +30,10 @@ public class CompanyService {
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
-        return companyRepository.getPaginatedAll(page, pageSize);
+        page = page - 1;
+        return companyRepository.getAll().stream().skip(page * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 
     public Company create(Company company) {

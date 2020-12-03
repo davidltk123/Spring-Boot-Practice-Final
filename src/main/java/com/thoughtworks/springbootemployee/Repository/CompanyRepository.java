@@ -24,13 +24,6 @@ public class CompanyRepository {
         return companies.stream().filter(company -> id.equals(company.getId())).findFirst().orElse(null).getEmployees();
     }
 
-    public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
-        page = page - 1;
-        return companies.stream().skip(page * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
-    }
-
     public Company create(Company company) {
         companies.add(company);
         return company;
