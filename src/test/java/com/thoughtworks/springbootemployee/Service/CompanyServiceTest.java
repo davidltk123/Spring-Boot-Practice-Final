@@ -12,6 +12,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
@@ -113,23 +115,22 @@ public class CompanyServiceTest {
         final Company company = companyArgumentCaptor.getValue();
         assertEquals(expected, company);
     }
-//
-//    @Test
-//    public void should_return_updated_company_when_update_given_valid_company_id() {
-//        //given
-//        final List<Employee> employees = Arrays.asList(
-//                new Employee(1, "david", 22, "male", 11111),
-//                new Employee(1, "peter", 22, "male", 11111)
-//        );
-//        final Company expected = new Company(1, "alibaba", 2, employees);
-//        when(companyRepository.update(1, expected)).thenReturn(expected);
-//
-//        //when
-//        final Company companies = companyService.update(1, expected);
-//
-//        //then
-//        assertEquals(expected, companies);
-//    }
+
+    @Test
+    public void should_return_updated_company_when_update_given_valid_company_id() {
+        //given
+        final List<String> employeeIds = Arrays.asList("1","2");
+        final Company originCompany = new Company("alibaba", 2, employeeIds);
+        final Company updatedCompany = new Company("blibaba", 2, employeeIds);
+        when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(originCompany));
+        when(companyRepository.save(updatedCompany)).thenReturn(updatedCompany);
+
+        //when
+        final Company company = companyService.update("1", updatedCompany);
+
+        //then
+        assertEquals(updatedCompany, company);
+    }
 //
 //    @Test
 //    public void should_delete_all_employees_of_a_specifc_company_when_delete_given_valid_company_id() {

@@ -56,7 +56,7 @@ public class CompanyService {
     }
 
     public Company update(String id, Company companyUpdate) {
-        if (getById(id) != null) {
+        if (companyRepository.findById(id).orElse(null) != null) {
             companyUpdate.setId(id);
             return companyRepository.save(companyUpdate);
         }
