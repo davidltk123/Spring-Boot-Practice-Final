@@ -2,7 +2,6 @@ package com.thoughtworks.springbootemployee.Service;
 
 import com.thoughtworks.springbootemployee.Model.Company;
 import com.thoughtworks.springbootemployee.Model.Employee;
-import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository1;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository1;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
@@ -131,20 +128,17 @@ public class CompanyServiceTest {
         //then
         assertEquals(updatedCompany, company);
     }
-//
-//    @Test
-//    public void should_delete_all_employees_of_a_specifc_company_when_delete_given_valid_company_id() {
-//        //given
-//        final List<Employee> employees = Arrays.asList(
-//                new Employee(1, "david", 22, "male", 11111),
-//                new Employee(1, "peter", 22, "male", 11111)
-//        );
-//        final Company expected = new Company(1, "alibaba", 2, employees);
-//
-//        //when
-//        companyService.delete(expected.getId());
-//
-//        //then
-//        verify(companyRepository, times(1)).delete(expected.getId());
-//    }
+
+    @Test
+    public void should_delete_all_employees_of_a_specifc_company_when_delete_given_valid_company_id() {
+        //given
+        final List<String> employeeIds = Arrays.asList("1","2");
+        final Company expected = new Company("alibaba", 2, employeeIds);
+
+        //when
+        companyService.delete("1");
+
+        //then
+        verify(companyRepository, times(1)).deleteById("1");
+    }
 }
