@@ -106,7 +106,12 @@ public class EmployeeIntergrationTest {
                 .andExpect(jsonPath("$[0].name").value("David"))
                 .andExpect(jsonPath("$[0].age").value(18))
                 .andExpect(jsonPath("$[0].gender").value("male"))
-                .andExpect(jsonPath("$[0].salary").value(10000));
+                .andExpect(jsonPath("$[0].salary").value(10000))
+                .andExpect(jsonPath("$[1].id").isString())
+                .andExpect(jsonPath("$[1].name").value("Jackie"))
+                .andExpect(jsonPath("$[1].age").value(18))
+                .andExpect(jsonPath("$[1].gender").value("female"))
+                .andExpect(jsonPath("$[1].salary").value(10000));
     }
 
     @Test
