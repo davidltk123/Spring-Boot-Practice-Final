@@ -65,6 +65,9 @@ public class EmployeeIntergrationTest {
 
     @Test
     public void should_return_404_not_found_when_get_by_id_given_invalid_employee_id() throws Exception {
+        //given
+        Employee employee = new Employee("David", 18, "male", 10000);
+        employeeRepository.save(employee);
         //when
         //then
         mockMvc.perform(get("/employees/" + "999999"))
@@ -164,6 +167,9 @@ public class EmployeeIntergrationTest {
 
     @Test
     public void should_return_404_not_found_when_delete_given_invalid_employee_id() throws Exception {
+        //given
+        Employee employee = new Employee("David", 18, "male", 10000);
+        employeeRepository.save(employee);
         //when
         //then
         mockMvc.perform(delete("/employees/" + "999999"))
