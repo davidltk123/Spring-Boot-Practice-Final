@@ -2,15 +2,13 @@ package com.thoughtworks.springbootemployee.Service;
 
 import com.thoughtworks.springbootemployee.Model.Company;
 import com.thoughtworks.springbootemployee.Model.Employee;
-import com.thoughtworks.springbootemployee.Repository.CompanyRepository1;
+import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
-import com.thoughtworks.springbootemployee.Repository.EmployeeRepository1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -18,12 +16,12 @@ import java.util.stream.StreamSupport;
 @Service
 public class CompanyService {
     @Autowired
-    private CompanyRepository1 companyRepository;
+    private CompanyRepository companyRepository;
     @Autowired
-    private EmployeeRepository1 employeeRepository;
+    private EmployeeRepository employeeRepository;
 
 
-    public CompanyService(CompanyRepository1 companyRepository, EmployeeRepository1 employeeRepository) {
+    public CompanyService(CompanyRepository companyRepository, EmployeeRepository employeeRepository) {
         this.companyRepository = companyRepository;
         this.employeeRepository = employeeRepository;
     }
