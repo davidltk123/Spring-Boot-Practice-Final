@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,10 +27,9 @@ public class EmployeeService {
     }
 
     public Employee getById(String id) {
-        try{
+        try {
             return employeeRepository.findById(id).orElse(null);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found!");
         }
     }
@@ -48,7 +46,7 @@ public class EmployeeService {
     }
 
     public Employee update(String id, Employee employeeUpdate) {
-        if(getById(id) != null){
+        if (getById(id) != null) {
             employeeUpdate.setId(id);
             return employeeRepository.save(employeeUpdate);
         }
@@ -56,7 +54,7 @@ public class EmployeeService {
     }
 
     public void delete(String id) {
-        if(getById(id) != null){
+        if (getById(id) != null) {
             employeeRepository.deleteById(id);
         }
     }

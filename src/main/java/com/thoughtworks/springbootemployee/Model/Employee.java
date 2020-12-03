@@ -1,7 +1,6 @@
 package com.thoughtworks.springbootemployee.Model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -28,7 +27,7 @@ public class Employee {
         return id;
     }
 
-    public void setId(String id){
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,7 +59,7 @@ public class Employee {
 
         final Employee other = (Employee) obj;
 
-        if(this.id != null && other.id !=null){
+        if (this.id != null && other.id != null) {
             return this.id.equals(other.id) && this.name.equals(other.name) && this.age == other.age && this.gender.equals(other.gender) && this.salary == other.salary;
         }
         return this.name.equals(other.name) && this.age == other.age && this.gender.equals(other.gender) && this.salary == other.salary;

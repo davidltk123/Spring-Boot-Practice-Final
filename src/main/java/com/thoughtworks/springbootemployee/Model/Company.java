@@ -3,7 +3,6 @@ package com.thoughtworks.springbootemployee.Model;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
-
 import java.util.List;
 
 @Document
@@ -55,7 +54,7 @@ public class Company {
 
         final Company other = (Company) obj;
 
-        if(this.id != null && other.id != null){
+        if (this.id != null && other.id != null) {
             return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
         }
 

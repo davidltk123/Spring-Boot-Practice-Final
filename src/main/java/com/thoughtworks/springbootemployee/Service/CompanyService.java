@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -31,17 +30,16 @@ public class CompanyService {
     }
 
     public Company getById(String id) {
-        try{
+        try {
             return companyRepository.findById(id).orElse(null);
-        }
-        catch(Exception exception){
+        } catch (Exception exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company Not Found!");
         }
     }
 
     public List<Employee> getEmployeesByCompanyId(String id) {
-        Company company =  getById(id);
-        if(company != null){
+        Company company = getById(id);
+        if (company != null) {
             List<String> employeeIds = company.getEmployeesId();
             Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
             return StreamSupport
