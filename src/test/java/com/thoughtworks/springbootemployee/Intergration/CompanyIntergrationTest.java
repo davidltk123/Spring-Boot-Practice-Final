@@ -221,4 +221,23 @@ public class CompanyIntergrationTest {
         assertEquals(2, companies.get(0).getEmployeesNumber());
         assertEquals(Arrays.asList("1","100"), companies.get(0).getEmployeesId());
     }
+
+    @Test
+    public void should_return_404_not_found_when_update_given_invalid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1","2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        String updateCompanyAsJson = "{\n" +
+                "    \"companyName\": \"Tesla\",\n" +
+                "    \"employeesNumber\": 2,\n" +
+                "    \"employeesId\": [\"1\",\"100\"]\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(put("/companies/" + "9999999")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateCompanyAsJson))
+                .andExpect(status().isNotFound());
+    }
 }
