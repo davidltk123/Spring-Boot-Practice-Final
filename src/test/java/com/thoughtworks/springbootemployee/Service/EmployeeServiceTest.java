@@ -86,17 +86,18 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_2_employees_when_get_paginated_all_given_3_employees_and_page_is_1_and_page_size_is_2() {
         //given
-        final List<Employee> expected = Arrays.asList(
+        final List<Employee> allEmployees = Arrays.asList(
                 new Employee(1,"david",22,"male",11111),
-                new Employee(1,"peter",22,"male",11111)
+                new Employee(1,"peter",22,"male",11111),
+                new Employee(1,"amy",22,"female",11111)
         );
-        when(employeeRepository.getPaginatedAll(1,2)).thenReturn(expected);
+        when(employeeRepository.getAll()).thenReturn(allEmployees);
 
         //when
         final List<Employee>  employees = employeeService.getPaginatedAll(1,2);
 
         //then
-        assertEquals(expected,employees);
+        assertEquals(2,employees.size());
     }
 
     @Test
