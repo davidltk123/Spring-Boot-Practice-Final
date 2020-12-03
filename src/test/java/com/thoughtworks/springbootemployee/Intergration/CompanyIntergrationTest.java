@@ -28,6 +28,9 @@ public class CompanyIntergrationTest {
     @Autowired
     private CompanyRepository1 companyRepository;
 
+    @Autowired
+    private EmployeeRepository1 employeeRepository;
+
     @AfterEach
     void tearDown() {
         companyRepository.deleteAll();
@@ -92,5 +95,31 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[1].employeesNumber").value(2))
                 .andExpect(jsonPath("$[1].employeesId[0]").value("1"))
                 .andExpect(jsonPath("$[1].employeesId[1]").value("2"));
+    }
+
+    @Test
+    public void should_return_all_employees_of_a_specific_company_when_get_employees_by_company_id_given_a_valid_company_id() throws Exception {
+        //given
+        Employee employee1 = new Employee("David", 18, "male", 10000);
+        Employee employee2 = new Employee("Jackie", 18, "female", 10000);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        List<String> employeeIds = Arrays.asList(employee1.getId(),employee2.getId());
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(get("/companies/" + company.getId() + "/employees"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").isString())
+                .andExpect(jsonPath("$[0].name").value("David"))
+                .andExpect(jsonPath("$[0].age").value(18))
+                .andExpect(jsonPath("$[0].gender").value("male"))
+                .andExpect(jsonPath("$[0].salary").value(10000))
+                .andExpect(jsonPath("$[1].id").isString())
+                .andExpect(jsonPath("$[1].name").value("Jackie"))
+                .andExpect(jsonPath("$[1].age").value(18))
+                .andExpect(jsonPath("$[1].gender").value("female"))
+                .andExpect(jsonPath("$[1].salary").value(10000));
     }
 }
