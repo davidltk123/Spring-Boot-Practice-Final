@@ -166,4 +166,35 @@ public class CompanyIntergrationTest {
         List<Company> companies = companyRepository.findAll();
         assertEquals(0, companies.size());
     }
+
+    @Test
+    public void should_return_updated_company_when_update_given_company() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1","2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        String updateCompanyAsJson = "{\n" +
+                "    \"companyName\": \"Tesla\",\n" +
+                "    \"employeesNumber\": 2,\n" +
+                "    \"employeesId\": [\"1\",\"100\"]\n" +
+                "}";
+
+        //when
+        //then
+        mockMvc.perform(put("/companies/" + company.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateCompanyAsJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.companyName").value("Tesla"))
+                .andExpect(jsonPath("$.employeesNumber").value(2))
+                .andExpect(jsonPath("$.employeesId[0]").value("1"))
+                .andExpect(jsonPath("$.employeesId[1]").value("100"));
+
+        List<Company> companies = companyRepository.findAll();
+        assertEquals(1, companies.size());
+        assertEquals("Tesla", companies.get(0).getCompanyName());
+        assertEquals(2, companies.get(0).getEmployeesNumber());
+        assertEquals(Arrays.asList("1","100"), companies.get(0).getEmployeesId());
+    }
 }
