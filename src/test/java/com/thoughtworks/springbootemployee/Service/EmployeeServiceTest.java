@@ -161,7 +161,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_null_when_delete_given_invalid_employee_id() {
+    public void should_not_call_delete_by_id_when_delete_given_invalid_employee_id() {
         //given
         final Employee employee = new Employee("david",44,"male",11111);
         when(employeeRepository.findById("999")).thenReturn(Optional.ofNullable(null));

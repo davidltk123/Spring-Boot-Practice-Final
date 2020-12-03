@@ -183,4 +183,18 @@ public class CompanyServiceTest {
         //then
         verify(companyRepository, times(1)).deleteById("1");
     }
+
+    @Test
+    public void should_not_call_delete_by_id_when_delete_given_invalid_company_id() {
+        //given
+        final List<String> employeeIds = Arrays.asList("1","2");
+        final Company expected = new Company("alibaba", 2, employeeIds);
+        when(companyRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+
+        //when
+        companyService.delete("999");
+
+        //then
+        verify(companyRepository, times(0)).deleteById("999");
+    }
 }
