@@ -40,7 +40,7 @@ public class CompanyService {
     public List<Employee> getEmployeesByCompanyId(String id) {
         Company company = getById(id);
         if (company != null) {
-            List<String> employeeIds = company.getEmployeesId();
+            List<String> employeeIds = company.getEmployeeIds();
             Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
             return StreamSupport
                     .stream(employees.spliterator(), false)

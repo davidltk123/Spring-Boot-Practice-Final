@@ -49,8 +49,8 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("alibaba"))
                 .andExpect(jsonPath("$[0].employeesNumber").value(2))
-                .andExpect(jsonPath("$[0].employeesId[0]").value("1"))
-                .andExpect(jsonPath("$[0].employeesId[1]").value("2"));
+                .andExpect(jsonPath("$[0].employeeIds[0]").value("1"))
+                .andExpect(jsonPath("$[0].employeeIds[1]").value("2"));
     }
 
     @Test
@@ -66,8 +66,8 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("alibaba"))
                 .andExpect(jsonPath("$.employeesNumber").value(2))
-                .andExpect(jsonPath("$.employeesId[0]").value("1"))
-                .andExpect(jsonPath("$.employeesId[1]").value("2"));
+                .andExpect(jsonPath("$.employeeIds[0]").value("1"))
+                .andExpect(jsonPath("$.employeeIds[1]").value("2"));
 
     }
 
@@ -100,13 +100,13 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("alibaba"))
                 .andExpect(jsonPath("$[0].employeesNumber").value(2))
-                .andExpect(jsonPath("$[0].employeesId[0]").value("1"))
-                .andExpect(jsonPath("$[0].employeesId[1]").value("2"))
+                .andExpect(jsonPath("$[0].employeeIds[0]").value("1"))
+                .andExpect(jsonPath("$[0].employeeIds[1]").value("2"))
                 .andExpect(jsonPath("$[1].id").isString())
                 .andExpect(jsonPath("$[1].companyName").value("blibaba"))
                 .andExpect(jsonPath("$[1].employeesNumber").value(2))
-                .andExpect(jsonPath("$[1].employeesId[0]").value("1"))
-                .andExpect(jsonPath("$[1].employeesId[1]").value("2"));
+                .andExpect(jsonPath("$[1].employeeIds[0]").value("1"))
+                .andExpect(jsonPath("$[1].employeeIds[1]").value("2"));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class CompanyIntergrationTest {
         String companyAsJson = "{\n" +
                 "    \"companyName\": \"alibaba\",\n" +
                 "    \"employeesNumber\": 2,\n" +
-                "    \"employeesId\": [\"1\",\"2\"]\n" +
+                "    \"employeeIds\": [\"1\",\"2\"]\n" +
                 "}";
 
         //when
@@ -153,14 +153,14 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("alibaba"))
                 .andExpect(jsonPath("$.employeesNumber").value(2))
-                .andExpect(jsonPath("$.employeesId[0]").value("1"))
-                .andExpect(jsonPath("$.employeesId[1]").value("2"));
+                .andExpect(jsonPath("$.employeeIds[0]").value("1"))
+                .andExpect(jsonPath("$.employeeIds[1]").value("2"));
 
         List<Company> companies = companyRepository.findAll();
         assertEquals(1, companies.size());
         assertEquals("alibaba", companies.get(0).getCompanyName());
         assertEquals(2, companies.get(0).getEmployeesNumber());
-        assertEquals(Arrays.asList("1","2"), companies.get(0).getEmployeesId());
+        assertEquals(Arrays.asList("1","2"), companies.get(0).getEmployeeIds());
     }
 
     @Test
@@ -200,7 +200,7 @@ public class CompanyIntergrationTest {
         String updateCompanyAsJson = "{\n" +
                 "    \"companyName\": \"Tesla\",\n" +
                 "    \"employeesNumber\": 2,\n" +
-                "    \"employeesId\": [\"1\",\"100\"]\n" +
+                "    \"employeeIds\": [\"1\",\"100\"]\n" +
                 "}";
 
         //when
@@ -212,14 +212,14 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("Tesla"))
                 .andExpect(jsonPath("$.employeesNumber").value(2))
-                .andExpect(jsonPath("$.employeesId[0]").value("1"))
-                .andExpect(jsonPath("$.employeesId[1]").value("100"));
+                .andExpect(jsonPath("$.employeeIds[0]").value("1"))
+                .andExpect(jsonPath("$.employeeIds[1]").value("100"));
 
         List<Company> companies = companyRepository.findAll();
         assertEquals(1, companies.size());
         assertEquals("Tesla", companies.get(0).getCompanyName());
         assertEquals(2, companies.get(0).getEmployeesNumber());
-        assertEquals(Arrays.asList("1","100"), companies.get(0).getEmployeesId());
+        assertEquals(Arrays.asList("1","100"), companies.get(0).getEmployeeIds());
     }
 
     @Test

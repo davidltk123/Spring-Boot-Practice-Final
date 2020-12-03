@@ -11,7 +11,7 @@ public class Company {
     private String id;
     private String companyName;
     private Integer employeesNumber;
-    private List<String> employeesId;
+    private List<String> employeeIds;
 
     public Company() {
     }
@@ -19,7 +19,7 @@ public class Company {
     public Company(String companyName, Integer employeesNumber, List<String> employees) {
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
-        this.employeesId = employees;
+        this.employeeIds = employees;
     }
 
     public void setId(String id) {
@@ -38,8 +38,8 @@ public class Company {
         return employeesNumber;
     }
 
-    public List<String> getEmployeesId() {
-        return employeesId;
+    public List<String> getEmployeeIds() {
+        return employeeIds;
     }
 
     @Override
@@ -55,9 +55,9 @@ public class Company {
         final Company other = (Company) obj;
 
         if (this.id != null && other.id != null) {
-            return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
+            return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber.equals(other.employeesNumber) && this.employeeIds == other.employeeIds;
         }
 
-        return this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
+        return this.companyName.equals(other.companyName) && this.employeesNumber.equals(other.employeesNumber) && this.employeeIds == other.employeeIds;
     }
 }

@@ -60,8 +60,8 @@ public class Employee {
         final Employee other = (Employee) obj;
 
         if (this.id != null && other.id != null) {
-            return this.id.equals(other.id) && this.name.equals(other.name) && this.age == other.age && this.gender.equals(other.gender) && this.salary == other.salary;
+            return this.id.equals(other.id) && this.name.equals(other.name) && this.age.equals(other.age) && this.gender.equals(other.gender) && this.salary.equals(other.salary);
         }
-        return this.name.equals(other.name) && this.age == other.age && this.gender.equals(other.gender) && this.salary == other.salary;
+        return this.name.equals(other.name) && this.age.equals(other.age) && this.gender.equals(other.gender) && this.salary.equals(other.salary);
     }
 }
