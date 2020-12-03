@@ -90,6 +90,26 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
+    public void should_return_2_employees_when_get_by_paging_given_3_employees_and_page_number_is_1_and_pagesize_is_2() throws Exception {
+        //given
+        Employee employee1 = new Employee("David", 18, "male", 10000);
+        Employee employee2 = new Employee("Jackie", 18, "female", 10000);
+        Employee employee3 = new Employee("Tom", 18, "male", 10000);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        employeeRepository.save(employee3);
+        //when
+        //then
+        mockMvc.perform(get("/employees").param("page", String.valueOf(1)).param("pageSize",String.valueOf(2)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").isString())
+                .andExpect(jsonPath("$[0].name").value("David"))
+                .andExpect(jsonPath("$[0].age").value(18))
+                .andExpect(jsonPath("$[0].gender").value("male"))
+                .andExpect(jsonPath("$[0].salary").value(10000));
+    }
+
+    @Test
     public void should_return_created_employee_when_create_given_employee() throws Exception {
         //given
         String employeeAsJson = "{\n" +
