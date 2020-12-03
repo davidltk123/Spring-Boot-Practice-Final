@@ -35,7 +35,6 @@ public class EmployeeServiceTest {
         final List<Employee> expected = Arrays.asList(
                 new Employee("david",22,"male",11111),
                 new Employee("peter",22,"male",11111)
-
         );
         when(employeeRepository.findAll()).thenReturn(expected);
 
@@ -98,7 +97,7 @@ public class EmployeeServiceTest {
         when(employeeRepository.findAll()).thenReturn(allEmployees);
 
         //when
-        final List<Employee>  employees = employeeService.getPaginatedAll(1,2);
+        final List<Employee>  employees = employeeService.getPaginatedAll(0,2);
 
         //then
         assertEquals(2,employees.size());

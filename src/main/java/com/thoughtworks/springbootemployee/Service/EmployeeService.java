@@ -35,7 +35,6 @@ public class EmployeeService {
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
-        page = page - 1;
         return employeeRepository.findAll().stream().skip(page * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());

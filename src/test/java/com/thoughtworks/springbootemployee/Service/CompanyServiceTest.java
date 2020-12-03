@@ -90,7 +90,7 @@ public class CompanyServiceTest {
         when(companyRepository.findAll()).thenReturn(expected);
 
         //when
-        final List<Company> companies = companyService.getPaginatedAll(1, 2);
+        final List<Company> companies = companyService.getPaginatedAll(0, 2);
 
         //then
         assertEquals(2, companies.size());

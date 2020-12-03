@@ -50,7 +50,6 @@ public class CompanyService {
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
-        page = page - 1;
         return companyRepository.findAll().stream().skip(page * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
