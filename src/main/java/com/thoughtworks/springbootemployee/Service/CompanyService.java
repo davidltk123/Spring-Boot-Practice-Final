@@ -35,13 +35,15 @@ public class CompanyService {
     }
 
     public List<Employee> getEmployeesByCompanyId(String id) {
-        Company company = getById(id);
-        List<String> employeeIds = company.getEmployeesId();
-        Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
-        return StreamSupport
-                .stream(employees.spliterator(), false)
-                .collect(Collectors.toList());
-
+        Company company =  companyRepository.findById(id).orElse(null);
+        if(company != null){
+            List<String> employeeIds = company.getEmployeesId();
+            Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
+            return StreamSupport
+                    .stream(employees.spliterator(), false)
+                    .collect(Collectors.toList());
+        }
+        return null;
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
