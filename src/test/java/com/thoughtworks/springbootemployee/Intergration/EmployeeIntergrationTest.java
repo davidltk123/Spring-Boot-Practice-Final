@@ -1,7 +1,6 @@
 package com.thoughtworks.springbootemployee.Intergration;
 
 import com.thoughtworks.springbootemployee.Model.Employee;
-import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository1;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
