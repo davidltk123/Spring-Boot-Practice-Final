@@ -11,11 +11,14 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class CompanyServiceTest {
@@ -57,10 +60,22 @@ public class CompanyServiceTest {
         assertEquals(expected, companies);
     }
 
-    //TODO: investigate later
+    @Test
+    public void should_return_null_when_get_by_id_given_invalid_company_id() {
+        //given
+        final List<String> employeeIds = Arrays.asList("1","2");
+        final Company expected = new Company("alibaba", 2, employeeIds);
+        when(companyRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+
+        //when
+        final Company company = companyService.getById("999");
+
+        //then
+        assertNull(company);
+    }
+
     @Test
     public void should_return_employees_when_get_employees_by_company_given_valid_company_id() {
-        //given
         //given
         final List<String> employeeIds = Arrays.asList("1","2");
         final Company expected = new Company("alibaba", 2, employeeIds);
