@@ -1,24 +1,34 @@
 package com.thoughtworks.springbootemployee.Model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
 import java.util.List;
 
+@Document
 public class Company {
-    private Integer id;
+    @MongoId(FieldType.OBJECT_ID)
+    private String id;
     private String companyName;
     private Integer employeesNumber;
-    private List<Employee> employees;
+    private List<String> employeesId;
 
     public Company() {
     }
 
-    public Company(Integer id, String companyName, Integer employeesNumber, List<Employee> employees) {
+    public Company(String id, String companyName, Integer employeesNumber, List<String> employees) {
         this.id = id;
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
-        this.employees = employees;
+        this.employeesId = employees;
     }
 
-    public Integer getId() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -30,8 +40,8 @@ public class Company {
         return employeesNumber;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public List<String> getEmployeesId() {
+        return employeesId;
     }
 
     @Override
@@ -45,6 +55,6 @@ public class Company {
         }
 
         final Company other = (Company) obj;
-        return this.id == other.id && this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employees == other.employees;
+        return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber == other.employeesNumber && this.employeesId == other.employeesId;
     }
 }

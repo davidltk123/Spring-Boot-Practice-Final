@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class CompanyRepository {
@@ -19,10 +18,10 @@ public class CompanyRepository {
     public Company getById(Integer id) {
         return companies.stream().filter(company -> id.equals(company.getId())).findFirst().orElse(null);
     }
-
-    public List<Employee> getEmployeesByCompanyId(Integer id) {
-        return companies.stream().filter(company -> id.equals(company.getId())).findFirst().orElse(null).getEmployees();
-    }
+//
+//    public List<Employee> getEmployeesByCompanyId(String id) {
+//        return companies.stream().filter(company -> id.equals(company.getId())).findFirst().orElse(null).getEmployeesId();
+//    }
 
     public Company create(Company company) {
         companies.add(company);
