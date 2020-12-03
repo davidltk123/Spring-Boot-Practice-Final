@@ -180,6 +180,18 @@ public class CompanyIntergrationTest {
     }
 
     @Test
+    public void should_return_404_not_found_when_delete_given_invalid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1","2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(delete("/companies/" + "9999999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void should_return_updated_company_when_update_given_company() throws Exception {
         //given
         List<String> employeeIds = Arrays.asList("1","2");
