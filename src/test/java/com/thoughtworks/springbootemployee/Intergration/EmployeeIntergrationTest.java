@@ -124,7 +124,7 @@ public class EmployeeIntergrationTest {
         mockMvc.perform(post("/employees")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employeeAsJson))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.name").value("tom"))
                 .andExpect(jsonPath("$.age").value(22))
