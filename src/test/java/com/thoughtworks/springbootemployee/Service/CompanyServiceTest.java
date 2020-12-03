@@ -94,6 +94,18 @@ public class CompanyServiceTest {
     }
 
     @Test
+    public void should_return_null_when_get_employee_by_company_id_given_invalid_company_id() {
+        //given
+        when(companyRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+
+        //when
+        final List<Employee> companies = companyService.getEmployeesByCompanyId("999");
+
+        //then
+        assertNull(companies);
+    }
+
+    @Test
     public void should_return_2_companies_when_get_paginated_all_given_3_companies_and_page_is_1_and_page_size_is_2() {
         //given
         final List<String> employeeIds = Arrays.asList("1","2","3");
