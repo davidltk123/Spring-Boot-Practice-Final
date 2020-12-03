@@ -163,6 +163,14 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
+    public void should_return_404_not_found_when_delete_given_invalid_employee_id() throws Exception {
+        //when
+        //then
+        mockMvc.perform(delete("/employees/" + "999999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     public void should_return_updated_employee_when_update_given_employee() throws Exception {
         //given
         Employee employee = new Employee("David", 18, "male", 10000);
