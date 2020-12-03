@@ -49,4 +49,22 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[0].employeesId[0]").value("1"))
                 .andExpect(jsonPath("$[0].employeesId[1]").value("2"));
     }
+
+    @Test
+    public void should_return_specific_company_when_get_by_id_given_valid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1","2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(get("/companies/" + company.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.companyName").value("alibaba"))
+                .andExpect(jsonPath("$.employeesNumber").value(2))
+                .andExpect(jsonPath("$.employeesId[0]").value("1"))
+                .andExpect(jsonPath("$.employeesId[1]").value("2"));
+
+    }
 }
