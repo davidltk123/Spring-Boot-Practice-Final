@@ -74,7 +74,7 @@ public class CompanyIntergrationTest {
     }
 
     @Test
-    public void should_return_404_not_found_when_get_by_id_given_invalid_company_id() throws Exception {
+    public void should_return_bad_request_when_get_by_id_given_wrong_format_company_id() throws Exception {
         //given
         List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
@@ -82,6 +82,18 @@ public class CompanyIntergrationTest {
         //when
         //then
         mockMvc.perform(get("/companies/" + "9999999"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_get_by_id_given_invalid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1", "2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(get("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -182,7 +194,7 @@ public class CompanyIntergrationTest {
     }
 
     @Test
-    public void should_return_404_not_found_when_delete_given_invalid_company_id() throws Exception {
+    public void should_return_bad_request_when_delete_given_wrong_format_company_id() throws Exception {
         //given
         List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
@@ -190,6 +202,18 @@ public class CompanyIntergrationTest {
         //when
         //then
         mockMvc.perform(delete("/companies/" + "9999999"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_delete_given_invalid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1", "2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(delete("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -219,7 +243,7 @@ public class CompanyIntergrationTest {
     }
 
     @Test
-    public void should_return_404_not_found_when_update_given_invalid_company_id() throws Exception {
+    public void should_return_bad_request_when_update_given_wrong_format_company_id() throws Exception {
         //given
         List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
@@ -232,6 +256,25 @@ public class CompanyIntergrationTest {
         //when
         //then
         mockMvc.perform(put("/companies/" + "9999999")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateCompanyAsJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_update_given_invalid_company_id() throws Exception {
+        //given
+        List<String> employeeIds = Arrays.asList("1", "2");
+        Company company = new Company("alibaba", 2, employeeIds);
+        companyRepository.save(company);
+        String updateCompanyAsJson = "{\n" +
+                "    \"companyName\": \"Tesla\",\n" +
+                "    \"employeesNumber\": 2,\n" +
+                "    \"employeesId\": [\"1\",\"100\"]\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(put("/companies/" + "5fc9a83a8a77666d0c8ea0e1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateCompanyAsJson))
                 .andExpect(status().isNotFound());
