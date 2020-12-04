@@ -35,14 +35,13 @@ public class CompanyService {
 
     public List<Employee> getEmployeesByCompanyId(String id) {
         Company company = getById(id);
-        if (company != null) {
-            List<String> employeeIds = company.getEmployeeIds();
-            Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
-            return StreamSupport
-                    .stream(employees.spliterator(), false)
-                    .collect(Collectors.toList());
-        }
-        return null;
+        List<String> employeeIds = company.getEmployeeIds();
+        Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
+        return StreamSupport
+                .stream(employees.spliterator(), false)
+                .collect(Collectors.toList());
+
+
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
@@ -56,16 +55,13 @@ public class CompanyService {
     }
 
     public Company update(String id, Company companyUpdate) {
-        if (getById(id) != null) {
-            companyUpdate.setId(id);
-            return companyRepository.save(companyUpdate);
-        }
-        return null;
+        Company company = getById(id);
+        companyUpdate.setId(company.getId());
+        return companyRepository.save(companyUpdate);
     }
 
     public void delete(String id) {
-        if (getById(id) != null) {
-            companyRepository.deleteById(id);
-        }
+        Company company = getById(id);
+        companyRepository.deleteById(company.getId());
     }
 }
