@@ -3,6 +3,8 @@ package com.thoughtworks.springbootemployee.Model;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -20,6 +22,10 @@ public class Company {
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
         this.employeeIds = employees;
+    }
+
+    public Company(String companyName) {
+        this.companyName = companyName;
     }
 
     public void setId(String id) {

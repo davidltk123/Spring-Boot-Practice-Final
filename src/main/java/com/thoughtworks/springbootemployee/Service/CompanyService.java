@@ -40,8 +40,6 @@ public class CompanyService {
         return StreamSupport
                 .stream(employees.spliterator(), false)
                 .collect(Collectors.toList());
-
-
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {
