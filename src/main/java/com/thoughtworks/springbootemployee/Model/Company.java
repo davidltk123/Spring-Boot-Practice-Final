@@ -12,16 +12,12 @@ public class Company {
     @MongoId(FieldType.OBJECT_ID)
     private String id;
     private String companyName;
-    private Integer employeesNumber;
-    private List<String> employeeIds;
 
     public Company() {
     }
 
-    public Company(String companyName, Integer employeesNumber, List<String> employees) {
+    public Company(String companyName) {
         this.companyName = companyName;
-        this.employeesNumber = employeesNumber;
-        this.employeeIds = employees;
     }
 
     public void setId(String id) {
@@ -36,13 +32,6 @@ public class Company {
         return companyName;
     }
 
-    public Integer getEmployeesNumber() {
-        return employeesNumber;
-    }
-
-    public List<String> getEmployeeIds() {
-        return employeeIds;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -57,9 +46,9 @@ public class Company {
         final Company other = (Company) obj;
 
         if (this.id != null && other.id != null) {
-            return this.id.equals(other.id) && this.companyName.equals(other.companyName) && this.employeesNumber.equals(other.employeesNumber) && this.employeeIds == other.employeeIds;
+            return this.id.equals(other.id) && this.companyName.equals(other.companyName);
         }
 
-        return this.companyName.equals(other.companyName) && this.employeesNumber.equals(other.employeesNumber) && this.employeeIds == other.employeeIds;
+        return this.companyName.equals(other.companyName);
     }
 }
