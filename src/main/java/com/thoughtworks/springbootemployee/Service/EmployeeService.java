@@ -1,11 +1,13 @@
 package com.thoughtworks.springbootemployee.Service;
 
+import com.thoughtworks.springbootemployee.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,13 +29,7 @@ public class EmployeeService {
     }
 
     public Employee getById(String id) {
-        try {
-            return employeeRepository.findById(id).orElse(null);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found!");
-        }
-        //return employeeRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found!"));
-
+        return employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException("Employee Not Found!"));
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {
@@ -46,17 +42,15 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public Employee update(String id, Employee employeeUpdate) {
-        if (getById(id) != null) {
-            employeeUpdate.setId(id);
-            return employeeRepository.save(employeeUpdate);
-        }
-        return null;
+    public Employee update(String id, Employee employeeUpdate) throws EmployeeNotFoundException {
+        Employee employee = getById(id);
+        employeeUpdate.setId(employee.getId());
+        return employeeRepository.save(employeeUpdate);
     }
 
-    public void delete(String id) {
-        if (getById(id) != null) {
-            employeeRepository.deleteById(id);
-        }
+    public void delete(String id) throws EmployeeNotFoundException {
+        Employee employee = getById(id);
+        employeeRepository.deleteById(id);
+
     }
 }
