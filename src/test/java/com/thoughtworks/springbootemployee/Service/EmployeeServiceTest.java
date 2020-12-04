@@ -1,9 +1,9 @@
 package com.thoughtworks.springbootemployee.Service;
+import com.thoughtworks.springbootemployee.Exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
@@ -75,15 +77,17 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_null_when_get_by_id_given_invalid_employee_id() {
+    public void should_throw_employee_not_found_exception_when_get_by_id_given_invalid_employee_id() {
         //given
-        when(employeeRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+        when(employeeRepository.findById(any())).thenReturn(Optional.empty());
 
         //when
-        final Employee employees = employeeService.getById("999");
+        EmployeeNotFoundException employeeNotFoundException = assertThrows(EmployeeNotFoundException.class, ()-> {
+            employeeService.getById("99999");
+        });
 
         //then
-        assertNull(employees);
+        assertEquals("Employee Not Found!",employeeNotFoundException.getMessage());
     }
 
     @Test
@@ -135,16 +139,18 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_null_when_update_given_invalid_employee_id() {
+    public void should_throw_employee_not_found_exception_when_update_given_invalid_employee_id() {
         //given
         final Employee employee = new Employee("david",44,"male",11111);
-        when(employeeRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+        when(employeeRepository.findById(any())).thenReturn(Optional.empty());
 
         //when
-        final Employee actual = employeeService.update("999",employee);
+        EmployeeNotFoundException employeeNotFoundException = assertThrows(EmployeeNotFoundException.class, ()-> {
+            employeeService.update("99999",employee);
+        });
 
         //then
-        assertNull(actual);
+        assertEquals("Employee Not Found!",employeeNotFoundException.getMessage());
     }
 
     @Test
@@ -157,20 +163,22 @@ public class EmployeeServiceTest {
         employeeService.delete("1");
 
         //then
-        verify(employeeRepository, times(1)).deleteById("1");
+        verify(employeeRepository, times(1)).deleteById(expected.getId());
     }
 
     @Test
-    public void should_not_call_delete_by_id_when_delete_given_invalid_employee_id() {
+    public void should_throw_employee_not_found_exception_when_delete_given_invalid_employee_id() {
         //given
         final Employee employee = new Employee("david",44,"male",11111);
-        when(employeeRepository.findById("999")).thenReturn(Optional.ofNullable(null));
+        when(employeeRepository.findById(any())).thenReturn(Optional.empty());
 
         //when
-        employeeService.delete("999");
+        EmployeeNotFoundException employeeNotFoundException = assertThrows(EmployeeNotFoundException.class, ()-> {
+            employeeService.delete("99999");
+        });
 
         //then
-        verify(employeeRepository, times(0)).deleteById("999");
+        assertEquals("Employee Not Found!",employeeNotFoundException.getMessage());
     }
 
 }
