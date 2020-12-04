@@ -32,6 +32,8 @@ public class EmployeeService {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found!");
         }
+        //return employeeRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found!"));
+
     }
 
     public List<Employee> getPaginatedAll(Integer page, Integer pageSize) {

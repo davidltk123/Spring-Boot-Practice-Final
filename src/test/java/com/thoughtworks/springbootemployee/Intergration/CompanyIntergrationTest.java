@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -84,7 +86,7 @@ public class CompanyIntergrationTest {
     }
 
     @Test
-    public void should_return_2_companies_when_get_by_paging_given_3_companies_and_page_number_is_1_and_pagesize_is_2() throws Exception {
+    public void should_return_2_companies_when_get_by_paging_given_3_companies_and_page_number_is_0_and_pagesize_is_2() throws Exception {
         //given
         List<String> employeeIds = Arrays.asList("1","2");
         Company company1 = new Company("alibaba", 2, employeeIds);
@@ -175,8 +177,8 @@ public class CompanyIntergrationTest {
         mockMvc.perform(delete("/companies/" + company.getId()))
                 .andExpect(status().isOk());
 
-        List<Company> companies = companyRepository.findAll();
-        assertEquals(0, companies.size());
+        Optional<Company> actual = companyRepository.findById(company.getId());
+        assertEquals(Optional.empty(), actual);
     }
 
     @Test

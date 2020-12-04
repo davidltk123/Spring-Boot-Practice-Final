@@ -87,7 +87,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void should_return_2_employees_when_get_paginated_all_given_3_employees_and_page_is_1_and_page_size_is_2() {
+    public void should_return_2_employees_when_get_paginated_all_given_3_employees_and_page_is_0_and_page_size_is_2() {
         //given
         final List<Employee> allEmployees = Arrays.asList(
                 new Employee("david",22,"male",11111),

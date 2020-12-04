@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -96,7 +98,7 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
-    public void should_return_2_employees_when_get_by_paging_given_3_employees_and_page_number_is_1_and_pagesize_is_2() throws Exception {
+    public void should_return_2_employees_when_get_by_paging_given_3_employees_and_page_number_is_0_and_pagesize_is_2() throws Exception {
         //given
         Employee employee1 = new Employee("David", 18, "male", 10000);
         Employee employee2 = new Employee("Jackie", 18, "female", 10000);
@@ -161,8 +163,8 @@ public class EmployeeIntergrationTest {
         mockMvc.perform(delete("/employees/" + employee.getId()))
                 .andExpect(status().isOk());
 
-        List<Employee> employees = employeeRepository.findAll();
-        assertEquals(0, employees.size());
+        Optional<Employee> employees = employeeRepository.findById(employee.getId());
+        assertEquals(Optional.empty(), employees);
     }
 
     @Test
