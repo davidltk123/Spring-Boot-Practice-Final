@@ -24,10 +24,6 @@ public class Company {
         this.employeeIds = employees;
     }
 
-    public Company(String companyName) {
-        this.companyName = companyName;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
