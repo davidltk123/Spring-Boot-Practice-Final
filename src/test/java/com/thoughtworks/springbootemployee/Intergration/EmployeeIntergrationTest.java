@@ -67,13 +67,24 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
-    public void should_return_404_not_found_when_get_by_id_given_invalid_employee_id() throws Exception {
+    public void should_return_bad_request_not_found_when_get_by_id_given_wrong_format_employee_id() throws Exception {
         //given
         Employee employee = new Employee("David", 18, "male", 10000);
         employeeRepository.save(employee);
         //when
         //then
         mockMvc.perform(get("/employees/" + "999999"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_get_by_id_given_invalid_employee_id() throws Exception {
+        //given
+        Employee employee = new Employee("David", 18, "male", 10000);
+        employeeRepository.save(employee);
+        //when
+        //then
+        mockMvc.perform(get("/employees/" + "5fc87d3794bb8a6f4a5b4da3"))
                 .andExpect(status().isNotFound());
     }
 
@@ -169,13 +180,24 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
-    public void should_return_404_not_found_when_delete_given_invalid_employee_id() throws Exception {
+    public void should_return_bad_request_when_delete_given_wrong_format_employee_id() throws Exception {
         //given
         Employee employee = new Employee("David", 18, "male", 10000);
         employeeRepository.save(employee);
         //when
         //then
         mockMvc.perform(delete("/employees/" + "999999"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_delete_given_invalid_employee_id() throws Exception {
+        //given
+        Employee employee = new Employee("David", 18, "male", 10000);
+        employeeRepository.save(employee);
+        //when
+        //then
+        mockMvc.perform(delete("/employees/" + "5fc87d3794bb8a6f4a5b4da3"))
                 .andExpect(status().isNotFound());
     }
 
@@ -206,7 +228,7 @@ public class EmployeeIntergrationTest {
     }
 
     @Test
-    public void should_return_404_not_found_when_update_given_invalid_employee_id() throws Exception {
+    public void should_return_bad_request_when_update_given_wrong_format_employee_id() throws Exception {
         //given
         Employee employee = new Employee("David", 18, "male", 10000);
         employeeRepository.save(employee);
@@ -219,6 +241,25 @@ public class EmployeeIntergrationTest {
         //when
         //then
         mockMvc.perform(put("/employees/" + "999999")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateEmployeeAsJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_update_given_invalid_employee_id() throws Exception {
+        //given
+        Employee employee = new Employee("David", 18, "male", 10000);
+        employeeRepository.save(employee);
+        String updateEmployeeAsJson = "{\n" +
+                "        \"name\": \"David\",\n" +
+                "        \"age\": 18,\n" +
+                "        \"gender\": \"male\",\n" +
+                "        \"salary\": 1000000\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(put("/employees/" + "5fc87d3794bb8a6f4a5b4da3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateEmployeeAsJson))
                 .andExpect(status().isNotFound());
