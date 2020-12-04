@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -108,7 +109,7 @@ public class EmployeeIntergrationTest {
         employeeRepository.save(employee3);
         //when
         //then
-        mockMvc.perform(get("/employees").param("page", String.valueOf(0)).param("pageSize",String.valueOf(2)))
+        mockMvc.perform(get("/employees").param("page", String.valueOf(0)).param("pageSize", String.valueOf(2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].name").value("David"))
@@ -132,6 +133,8 @@ public class EmployeeIntergrationTest {
                 "        \"salary\": 7000\n" +
                 "}";
 
+        int originalSize = employeeRepository.findAll().size();
+
         //when
         //then
         mockMvc.perform(post("/employees")
@@ -144,12 +147,10 @@ public class EmployeeIntergrationTest {
                 .andExpect(jsonPath("$.gender").value("male"))
                 .andExpect(jsonPath("$.salary").value(7000));
 
-        List<Employee> employees = employeeRepository.findAll();
-        assertEquals(1, employees.size());
-        assertEquals("tom", employees.get(0).getName());
-        assertEquals(22, employees.get(0).getAge());
-        assertEquals("male", employees.get(0).getGender());
-        assertEquals(7000, employees.get(0).getSalary());
+        int newSize = employeeRepository.findAll().size();
+
+        assertEquals(originalSize + 1, newSize);
+
     }
 
     @Test
@@ -202,11 +203,6 @@ public class EmployeeIntergrationTest {
                 .andExpect(jsonPath("$.gender").value("male"))
                 .andExpect(jsonPath("$.salary").value(1000000));
 
-        List<Employee> employees = employeeRepository.findAll();
-        assertEquals("David", employees.get(0).getName());
-        assertEquals(18, employees.get(0).getAge());
-        assertEquals("male", employees.get(0).getGender());
-        assertEquals(1000000, employees.get(0).getSalary());
     }
 
     @Test

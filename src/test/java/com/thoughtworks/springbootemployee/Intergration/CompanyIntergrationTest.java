@@ -41,7 +41,7 @@ public class CompanyIntergrationTest {
     @Test
     public void should_return_all_companies_when_get_all_given_all_companies() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         //when
@@ -58,7 +58,7 @@ public class CompanyIntergrationTest {
     @Test
     public void should_return_specific_company_when_get_by_id_given_valid_company_id() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         //when
@@ -76,7 +76,7 @@ public class CompanyIntergrationTest {
     @Test
     public void should_return_404_not_found_when_get_by_id_given_invalid_company_id() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         //when
@@ -88,7 +88,7 @@ public class CompanyIntergrationTest {
     @Test
     public void should_return_2_companies_when_get_by_paging_given_3_companies_and_page_number_is_0_and_pagesize_is_2() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company1 = new Company("alibaba", 2, employeeIds);
         Company company2 = new Company("blibaba", 2, employeeIds);
         Company company3 = new Company("clibaba", 2, employeeIds);
@@ -97,7 +97,7 @@ public class CompanyIntergrationTest {
         companyRepository.save(company3);
         //when
         //then
-        mockMvc.perform(get("/companies").param("page", String.valueOf(0)).param("pageSize",String.valueOf(2)))
+        mockMvc.perform(get("/companies").param("page", String.valueOf(0)).param("pageSize", String.valueOf(2)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("alibaba"))
@@ -118,7 +118,7 @@ public class CompanyIntergrationTest {
         Employee employee2 = new Employee("Jackie", 18, "female", 10000);
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
-        List<String> employeeIds = Arrays.asList(employee1.getId(),employee2.getId());
+        List<String> employeeIds = Arrays.asList(employee1.getId(), employee2.getId());
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         //when
@@ -146,6 +146,8 @@ public class CompanyIntergrationTest {
                 "    \"employeeIds\": [\"1\",\"2\"]\n" +
                 "}";
 
+        int originalSize = companyRepository.findAll().size();
+
         //when
         //then
         mockMvc.perform(post("/companies")
@@ -158,17 +160,15 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.employeeIds[0]").value("1"))
                 .andExpect(jsonPath("$.employeeIds[1]").value("2"));
 
-        List<Company> companies = companyRepository.findAll();
-        assertEquals(1, companies.size());
-        assertEquals("alibaba", companies.get(0).getCompanyName());
-        assertEquals(2, companies.get(0).getEmployeesNumber());
-        assertEquals(Arrays.asList("1","2"), companies.get(0).getEmployeeIds());
+        int newSize = companyRepository.findAll().size();
+
+        assertEquals(originalSize + 1, newSize);
     }
 
     @Test
     public void should_delete_specific_company_when_delete_given_valid_company_id() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
 
@@ -184,7 +184,7 @@ public class CompanyIntergrationTest {
     @Test
     public void should_return_404_not_found_when_delete_given_invalid_company_id() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         //when
@@ -196,7 +196,7 @@ public class CompanyIntergrationTest {
     @Test
     public void should_return_updated_company_when_update_given_company() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         String updateCompanyAsJson = "{\n" +
@@ -216,18 +216,12 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.employeesNumber").value(2))
                 .andExpect(jsonPath("$.employeeIds[0]").value("1"))
                 .andExpect(jsonPath("$.employeeIds[1]").value("100"));
-
-        List<Company> companies = companyRepository.findAll();
-        assertEquals(1, companies.size());
-        assertEquals("Tesla", companies.get(0).getCompanyName());
-        assertEquals(2, companies.get(0).getEmployeesNumber());
-        assertEquals(Arrays.asList("1","100"), companies.get(0).getEmployeeIds());
     }
 
     @Test
     public void should_return_404_not_found_when_update_given_invalid_company_id() throws Exception {
         //given
-        List<String> employeeIds = Arrays.asList("1","2");
+        List<String> employeeIds = Arrays.asList("1", "2");
         Company company = new Company("alibaba", 2, employeeIds);
         companyRepository.save(company);
         String updateCompanyAsJson = "{\n" +
