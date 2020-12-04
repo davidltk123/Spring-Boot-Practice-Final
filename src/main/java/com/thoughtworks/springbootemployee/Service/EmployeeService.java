@@ -50,7 +50,7 @@ public class EmployeeService {
 
     public void delete(String id) throws EmployeeNotFoundException {
         Employee employee = getById(id);
-        employeeRepository.deleteById(id);
+        employeeRepository.deleteById(employee.getId());
 
     }
 }
