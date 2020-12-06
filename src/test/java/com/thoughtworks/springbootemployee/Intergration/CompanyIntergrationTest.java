@@ -139,50 +139,46 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[1].gender").value("female"))
                 .andExpect(jsonPath("$[1].salary").value(10000));
     }
-//
-//    @Test
-//    public void should_return_created_company_when_create_given_company() throws Exception {
-//        //given
-//        String companyAsJson = "{\n" +
-//                "    \"companyName\": \"alibaba\",\n" +
-//                "    \"employeesNumber\": 2,\n" +
-//                "    \"employeeIds\": [\"1\",\"2\"]\n" +
-//                "}";
-//
-//        int originalSize = companyRepository.findAll().size();
-//
-//        //when
-//        //then
-//        mockMvc.perform(post("/companies")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(companyAsJson))
-//                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("$.id").isString())
-//                .andExpect(jsonPath("$.companyName").value("alibaba"))
-//                .andExpect(jsonPath("$.employeesNumber").value(2))
-//                .andExpect(jsonPath("$.employeeIds[0]").value("1"))
-//                .andExpect(jsonPath("$.employeeIds[1]").value("2"));
-//
-//        int newSize = companyRepository.findAll().size();
-//
-//        assertEquals(originalSize + 1, newSize);
-//    }
-//
-//    @Test
-//    public void should_delete_specific_company_when_delete_given_valid_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//
-//        //when
-//        //then
-//        mockMvc.perform(delete("/companies/" + company.getId()))
-//                .andExpect(status().isOk());
-//
-//        Optional<Company> actual = companyRepository.findById(company.getId());
-//        assertEquals(Optional.empty(), actual);
-//    }
+
+    @Test
+    public void should_return_created_company_when_create_given_company() throws Exception {
+        //given
+        String companyAsJson = "{\n" +
+                "    \"companyName\": \"alibaba\"\n" +
+                "}";
+
+        int originalSize = companyRepository.findAll().size();
+
+        //when
+        //then
+        mockMvc.perform(post("/companies")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(companyAsJson))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.companyName").value("alibaba"))
+                .andExpect(jsonPath("$.employeesNumber").value(0))
+                .andExpect(jsonPath("$.employees", hasSize(0)));
+
+        int newSize = companyRepository.findAll().size();
+
+        assertEquals(originalSize + 1, newSize);
+    }
+
+    @Test
+    public void should_delete_specific_company_when_delete_given_valid_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+
+        //when
+        //then
+        mockMvc.perform(delete("/companies/" + company.getId()))
+                .andExpect(status().isOk());
+
+        Optional<Company> actual = companyRepository.findById(company.getId());
+        assertEquals(Optional.empty(), actual);
+    }
 //
 //    @Test
 //    public void should_return_bad_request_when_delete_given_wrong_format_company_id() throws Exception {
