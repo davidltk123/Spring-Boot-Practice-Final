@@ -1,7 +1,6 @@
 package com.thoughtworks.springbootemployee.Service;
 
 import com.thoughtworks.springbootemployee.Exception.CompanyNotFoundException;
-import com.thoughtworks.springbootemployee.Exception.EmployeeNotFoundException;
 import com.thoughtworks.springbootemployee.Model.Company;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
@@ -78,11 +77,10 @@ public class CompanyServiceTest {
     @Test
     public void should_return_employees_when_get_employees_by_company_given_valid_company_id() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
         final Company expected = new Company("alibaba");
         final List<Employee> expectedEmployees = Arrays.asList(
-                new Employee("david", 22, "male", 11111,"123"),
-                new Employee("peter", 22, "male", 11111,"123")
+                new Employee("david", 22, "male", 11111, "123"),
+                new Employee("peter", 22, "male", 11111, "123")
         );
         when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(expected));
         when(employeeRepository.findAllByCompanyId(expected.getId())).thenReturn(expectedEmployees);
