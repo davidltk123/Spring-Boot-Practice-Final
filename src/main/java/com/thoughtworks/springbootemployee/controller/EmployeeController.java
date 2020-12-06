@@ -39,21 +39,18 @@ public class EmployeeController {
 
     @GetMapping("/{employeeId}")
     public EmployeeResponse getById(@PathVariable String employeeId) {
-        Employee employee = employeeService.getById(employeeId);
-        return employeeMapper.toResponse(employee);
+        return employeeMapper.toResponse(employeeService.getById(employeeId));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EmployeeResponse create(@RequestBody EmployeeRequest employeeRequest) {
-        Employee employee = employeeService.save(employeeMapper.toEntity(employeeRequest));
-        return employeeMapper.toResponse(employee);
+        return employeeMapper.toResponse(employeeService.save(employeeMapper.toEntity(employeeRequest)));
     }
 
     @PutMapping("/{employeeId}")
     public EmployeeResponse update(@PathVariable String employeeId, @RequestBody EmployeeRequest employeeRequest) {
-        Employee employee = employeeService.update(employeeId,employeeMapper.toEntity(employeeRequest));
-        return employeeMapper.toResponse(employee);
+        return employeeMapper.toResponse(employeeService.update(employeeId, employeeMapper.toEntity(employeeRequest)));
     }
 
     @DeleteMapping("/{employeeId}")
