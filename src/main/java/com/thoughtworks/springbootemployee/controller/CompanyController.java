@@ -11,6 +11,7 @@ import com.thoughtworks.springbootemployee.Service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,14 +35,12 @@ public class CompanyController {
 
     @GetMapping("/{companyId}")
     public CompanyResponse getById(@PathVariable String companyId) {
-        Company company = companyService.getById(companyId);
-        return companyMapper.toResponse(company);
+        return companyMapper.toResponse(companyService.getById(companyId));
     }
 
     @GetMapping("/{companyId}/employees")
     public List<EmployeeResponse> getEmployeesByCompanyId(@PathVariable String companyId) {
-        List<Employee> employees = companyService.getEmployeesByCompanyId(companyId);
-        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
+        return companyService.getEmployeesByCompanyId(companyId).stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     @GetMapping(params = {"page", "pageSize"})
@@ -52,14 +51,12 @@ public class CompanyController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CompanyResponse create(@RequestBody CompanyRequest companyRequest) {
-        Company company = companyService.create(companyMapper.toEntity(companyRequest));
-        return companyMapper.toResponse(company);
+        return companyMapper.toResponse(companyService.create(companyMapper.toEntity(companyRequest)));
     }
 
     @PutMapping("/{companyId}")
     public CompanyResponse update(@PathVariable String companyId, @RequestBody CompanyRequest companyRequest) {
-        Company company = companyService.update(companyId, companyMapper.toEntity(companyRequest));
-        return companyMapper.toResponse(company);
+        return companyMapper.toResponse(companyService.update(companyId, companyMapper.toEntity(companyRequest)));
     }
 
     @DeleteMapping("/{companyId}")
