@@ -36,9 +36,8 @@ public class CompanyServiceTest {
     @Test
     public void should_return_all_companies_when_get_all_given_all_companies() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
         final List<Company> expected = Arrays.asList(
-                new Company("alibaba", 2, employeeIds)
+                new Company("alibaba")
         );
         when(companyRepository.findAll()).thenReturn(expected);
 
@@ -52,8 +51,7 @@ public class CompanyServiceTest {
     @Test
     public void should_return_specific_company_when_get_by_id_given_valid_company_id() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
-        final Company expected = new Company("alibaba", 2, employeeIds);
+        final Company expected = new Company("alibaba");
         when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(expected));
 
         //when
@@ -81,13 +79,13 @@ public class CompanyServiceTest {
     public void should_return_employees_when_get_employees_by_company_given_valid_company_id() {
         //given
         final List<String> employeeIds = Arrays.asList("1", "2");
-        final Company expected = new Company("alibaba", 2, employeeIds);
+        final Company expected = new Company("alibaba");
         final List<Employee> expectedEmployees = Arrays.asList(
-                new Employee("david", 22, "male", 11111),
-                new Employee("peter", 22, "male", 11111)
+                new Employee("david", 22, "male", 11111,"123"),
+                new Employee("peter", 22, "male", 11111,"123")
         );
         when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(expected));
-        when(employeeRepository.findAllById(employeeIds)).thenReturn(expectedEmployees);
+        when(employeeRepository.findAllByCompanyId(expected.getId())).thenReturn(expectedEmployees);
 
         //when
         final List<Employee> employees = companyService.getEmployeesByCompanyId("1");
@@ -113,11 +111,10 @@ public class CompanyServiceTest {
     @Test
     public void should_return_2_companies_when_get_paginated_all_given_3_companies_and_page_is_0_and_page_size_is_2() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2", "3");
         final List<Company> expected = Arrays.asList(
-                new Company("alibaba", 2, employeeIds),
-                new Company("blibaba", 2, employeeIds),
-                new Company("clibaba", 2, employeeIds)
+                new Company("alibaba"),
+                new Company("blibaba"),
+                new Company("clibaba")
         );
         when(companyRepository.findAll()).thenReturn(expected);
 
@@ -131,8 +128,7 @@ public class CompanyServiceTest {
     @Test
     public void should_return_created_company_when_create_given_no_company_in_the_database() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
-        final Company expected = new Company("alibaba", 2, employeeIds);
+        final Company expected = new Company("alibaba");
         when(companyRepository.save(expected)).thenReturn(expected);
 
         //when
@@ -148,9 +144,8 @@ public class CompanyServiceTest {
     @Test
     public void should_return_updated_company_when_update_given_valid_company_id() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
-        final Company originCompany = new Company("alibaba", 2, employeeIds);
-        final Company updatedCompany = new Company("blibaba", 2, employeeIds);
+        final Company originCompany = new Company("alibaba");
+        final Company updatedCompany = new Company("blibaba");
         when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(originCompany));
         when(companyRepository.save(updatedCompany)).thenReturn(updatedCompany);
 
@@ -164,8 +159,7 @@ public class CompanyServiceTest {
     @Test
     public void should_throw_company_not_found_exception_when_update_given_invalid_company_id() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
-        final Company company = new Company("alibaba", 2, employeeIds);
+        final Company company = new Company("alibaba");
         when(companyRepository.findById(any())).thenReturn(Optional.empty());
 
         //when
@@ -180,8 +174,7 @@ public class CompanyServiceTest {
     @Test
     public void should_delete_company_when_delete_given_valid_company_id() {
         //given
-        final List<String> employeeIds = Arrays.asList("1", "2");
-        final Company expected = new Company("alibaba", 2, employeeIds);
+        final Company expected = new Company("alibaba");
         when(companyRepository.findById("1")).thenReturn(java.util.Optional.of(expected));
 
         //when
