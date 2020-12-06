@@ -22,11 +22,6 @@ public class EmployeeController {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public EmployeeController(EmployeeService employeeService, EmployeeMapper employeeMapper){
-        this.employeeService = employeeService;
-        this.employeeMapper = employeeMapper;
-    }
-
     @GetMapping(params = "gender")
     public List<EmployeeResponse> getByGender(@RequestParam String gender) {
         return employeeService.getByGender(gender).stream().map(employeeMapper::toResponse).collect(Collectors.toList());

@@ -1,8 +1,10 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import com.thoughtworks.springbootemployee.DTO.CompanyRequest;
 import com.thoughtworks.springbootemployee.DTO.CompanyResponse;
 import com.thoughtworks.springbootemployee.DTO.EmployeeResponse;
 import com.thoughtworks.springbootemployee.Mapper.CompanyMapper;
+import com.thoughtworks.springbootemployee.Mapper.EmployeeMapper;
 import com.thoughtworks.springbootemployee.Model.Company;
 import com.thoughtworks.springbootemployee.Model.Employee;
 import com.thoughtworks.springbootemployee.Service.CompanyService;
@@ -22,6 +24,8 @@ public class CompanyController {
     private CompanyService companyService;
     @Autowired
     private CompanyMapper companyMapper;
+    @Autowired
+    private EmployeeMapper employeeMapper;
 
     @GetMapping
     public List<CompanyResponse> getAll() {
@@ -37,23 +41,25 @@ public class CompanyController {
     @GetMapping("/{companyId}/employees")
     public List<EmployeeResponse> getEmployeesByCompanyId(@PathVariable String companyId) {
         List<Employee> employees = companyService.getEmployeesByCompanyId(companyId);
-        return companyService.getEmployeesByCompanyId(companyId);
+        return employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList());
     }
 
     @GetMapping(params = {"page", "pageSize"})
-    public List<Company> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
-        return companyService.getPaginatedAll(page, pageSize);
+    public List<CompanyResponse> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
+        return companyService.getPaginatedAll(page, pageSize).stream().map(companyMapper::toResponse).collect(Collectors.toList());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Company create(@RequestBody Company company) {
-        return companyService.create(company);
+    public CompanyResponse create(@RequestBody CompanyRequest companyRequest) {
+        Company company = companyService.create(companyMapper.toEntity(companyRequest));
+        return companyMapper.toResponse(company);
     }
 
     @PutMapping("/{companyId}")
-    public Company update(@PathVariable String companyId, @RequestBody Company companyUpdate) {
-        return companyService.update(companyId, companyUpdate);
+    public CompanyResponse update(@PathVariable String companyId, @RequestBody CompanyRequest companyRequest) {
+        Company company = companyService.update(companyId, companyMapper.toEntity(companyRequest));
+        return companyMapper.toResponse(company);
     }
 
     @DeleteMapping("/{companyId}")
