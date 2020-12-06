@@ -7,10 +7,8 @@ import com.thoughtworks.springbootemployee.Repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class CompanyService {
@@ -18,12 +16,6 @@ public class CompanyService {
     private CompanyRepository companyRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
-
-
-    public CompanyService(CompanyRepository companyRepository, EmployeeRepository employeeRepository) {
-        this.companyRepository = companyRepository;
-        this.employeeRepository = employeeRepository;
-    }
 
     public List<Company> getAll() {
         return companyRepository.findAll();
