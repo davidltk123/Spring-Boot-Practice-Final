@@ -32,6 +32,10 @@ public class Company {
         return companyName;
     }
 
+    public void setCompanyName(String companyName) {
+        this.companyName=companyName;
+    }
+
 
     @Override
     public boolean equals(Object obj) {

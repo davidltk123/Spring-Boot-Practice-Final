@@ -35,11 +35,7 @@ public class CompanyService {
 
     public List<Employee> getEmployeesByCompanyId(String id) {
         Company company = getById(id);
-        List<String> employeeIds = company.getEmployeeIds();
-        Iterable<Employee> employees = employeeRepository.findAllById(employeeIds);
-        return StreamSupport
-                .stream(employees.spliterator(), false)
-                .collect(Collectors.toList());
+        return employeeRepository.findAllByCompanyId(company.getId());
     }
 
     public List<Company> getPaginatedAll(Integer page, Integer pageSize) {

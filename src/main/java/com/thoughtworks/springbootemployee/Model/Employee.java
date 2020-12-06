@@ -12,15 +12,17 @@ public class Employee {
     private Integer age;
     private String gender;
     private Integer salary;
+    private String companyId;
 
     public Employee() {
     }
 
-    public Employee(String name, Integer age, String gender, Integer salary) {
+    public Employee(String name, Integer age, String gender, Integer salary, String companyId) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+        this.companyId = companyId;
     }
 
     public String getId() {
@@ -63,6 +65,14 @@ public class Employee {
         this.salary = salary;
     }
 
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -76,8 +86,8 @@ public class Employee {
         final Employee other = (Employee) obj;
 
         if (this.id != null && other.id != null) {
-            return this.id.equals(other.id) && this.name.equals(other.name) && this.age.equals(other.age) && this.gender.equals(other.gender) && this.salary.equals(other.salary);
+            return this.id.equals(other.id) && this.name.equals(other.name) && this.age.equals(other.age) && this.gender.equals(other.gender) && this.salary.equals(other.salary) && this.companyId.equals(other.companyId);
         }
-        return this.name.equals(other.name) && this.age.equals(other.age) && this.gender.equals(other.gender) && this.salary.equals(other.salary);
+        return this.name.equals(other.name) && this.age.equals(other.age) && this.gender.equals(other.gender) && this.salary.equals(other.salary) && this.companyId.equals(other.companyId);
     }
 }
