@@ -69,30 +69,28 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$.employees", hasSize(0)));
 
     }
-//
-//    @Test
-//    public void should_return_bad_request_when_get_by_id_given_wrong_format_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        //when
-//        //then
-//        mockMvc.perform(get("/companies/" + "9999999"))
-//                .andExpect(status().isBadRequest());
-//    }
-//
-//    @Test
-//    public void should_return_not_found_when_get_by_id_given_invalid_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        //when
-//        //then
-//        mockMvc.perform(get("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
-//                .andExpect(status().isNotFound());
-//    }
+
+    @Test
+    public void should_return_bad_request_when_get_by_id_given_wrong_format_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(get("/companies/" + "9999999"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_get_by_id_given_invalid_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(get("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
+                .andExpect(status().isNotFound());
+    }
 //
 //    @Test
 //    public void should_return_2_companies_when_get_by_paging_given_3_companies_and_page_number_is_0_and_pagesize_is_2() throws Exception {
