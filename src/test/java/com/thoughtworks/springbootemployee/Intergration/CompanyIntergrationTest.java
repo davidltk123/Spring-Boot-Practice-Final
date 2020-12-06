@@ -40,14 +40,19 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
+        Employee employee = new Employee("David",22,"male",11111,company.getId());
+        employeeRepository.save(employee);
         //when
         //then
         mockMvc.perform(get("/companies"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("alibaba"))
-                .andExpect(jsonPath("$[0].employeesNumber").value(0))
-                .andExpect(jsonPath("$[0].employees",hasSize(0)));
+                .andExpect(jsonPath("$[0].employeesNumber").value(1))
+                .andExpect(jsonPath("$[0].employees[0].name").value("David"))
+                .andExpect(jsonPath("$[0].employees[0].age").value(22))
+                .andExpect(jsonPath("$[0].employees[0].gender").value("male"))
+                .andExpect(jsonPath("$[0].employees[0].salary").value(11111));
     }
 
     @Test
@@ -55,14 +60,19 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
+        Employee employee = new Employee("David",22,"male",11111,company.getId());
+        employeeRepository.save(employee);
         //when
         //then
         mockMvc.perform(get("/companies/" + company.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("alibaba"))
-                .andExpect(jsonPath("$.employeesNumber").value(0))
-                .andExpect(jsonPath("$.employees", hasSize(0)));
+                .andExpect(jsonPath("$.employeesNumber").value(1))
+                .andExpect(jsonPath("$.employees[0].name").value("David"))
+                .andExpect(jsonPath("$.employees[0].age").value(22))
+                .andExpect(jsonPath("$.employees[0].gender").value("male"))
+                .andExpect(jsonPath("$.employees[0].salary").value(11111));
 
     }
 
@@ -203,6 +213,8 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
+        Employee employee = new Employee("David",22,"male",11111,company.getId());
+        employeeRepository.save(employee);
         String updateCompanyAsJson = "{\n" +
                 "    \"companyName\": \"Tesla\"\n" +
                 "}";
@@ -215,8 +227,11 @@ public class CompanyIntergrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isString())
                 .andExpect(jsonPath("$.companyName").value("Tesla"))
-                .andExpect(jsonPath("$.employeesNumber").value(0))
-                .andExpect(jsonPath("$.employees", hasSize(0)));
+                .andExpect(jsonPath("$.employeesNumber").value(1))
+                .andExpect(jsonPath("$.employees[0].name").value("David"))
+                .andExpect(jsonPath("$.employees[0].age").value(22))
+                .andExpect(jsonPath("$.employees[0].gender").value("male"))
+                .andExpect(jsonPath("$.employees[0].salary").value(11111));
     }
 
     @Test
