@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 public class CompanyMapper {
     @Autowired
     private CompanyService companyService;
-    @Autowired
-    private EmployeeMapper employeeMapper;
 
     public Company toEntity(CompanyRequest companyRequest){
         Company company = new Company();

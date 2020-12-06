@@ -35,8 +35,8 @@ public class EmployeeServiceTest {
     public void should_return_all_employees_when_get_all_given_all_employees() {
         //given
         final List<Employee> expected = Arrays.asList(
-                new Employee("david",22,"male",11111),
-                new Employee("peter",22,"male",11111)
+                new Employee("david",22,"male",11111,"123"),
+                new Employee("peter",22,"male",11111,"123")
         );
         when(employeeRepository.findAll()).thenReturn(expected);
 
@@ -51,8 +51,8 @@ public class EmployeeServiceTest {
     public void should_return_all_male_employees_when_get_by_gender_given_gender_is_male() {
         //given
         final List<Employee> expected = Arrays.asList(
-                new Employee("david",22,"male",11111),
-                new Employee("peter",22,"male",11111)
+                new Employee("david",22,"male",11111,"123"),
+                new Employee("peter",22,"male",11111,"123")
         );
         when(employeeRepository.findAllByGender("male")).thenReturn(expected);
 
@@ -66,7 +66,7 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_specific_employee_when_get_by_id_given_valid_employee_id() {
         //given
-        final Employee expected = new Employee("david", 22, "male", 11111);
+        final Employee expected = new Employee("david", 22, "male", 11111,"123");
         when(employeeRepository.findById("1")).thenReturn(Optional.of(expected));
 
         //when
@@ -94,9 +94,9 @@ public class EmployeeServiceTest {
     public void should_return_2_employees_when_get_paginated_all_given_3_employees_and_page_is_0_and_page_size_is_2() {
         //given
         final List<Employee> allEmployees = Arrays.asList(
-                new Employee("david",22,"male",11111),
-                new Employee("peter",22,"male",11111),
-                new Employee("amy",22,"female",11111)
+                new Employee("david",22,"male",11111,"123"),
+                new Employee("peter",22,"male",11111,"123"),
+                new Employee("amy",22,"female",11111,"123")
         );
         when(employeeRepository.findAll()).thenReturn(allEmployees);
 
@@ -110,7 +110,7 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_created_employee_when_create_given_no_employee_in_the_database() {
         //given
-        final Employee expected = new Employee("david",22,"male",11111);
+        final Employee expected = new Employee("david",22,"male",11111,"123");
         when(employeeRepository.save(expected)).thenReturn(expected);
 
         //when
@@ -126,8 +126,8 @@ public class EmployeeServiceTest {
     @Test
     public void should_return_updated_employee_when_update_given_valid_employee_id() {
         //given
-        final Employee originalEmployee = new Employee("david",22,"male",11111);
-        final Employee updatedEmployee = new Employee("david",44,"male",11111);
+        final Employee originalEmployee = new Employee("david",22,"male",11111,"123");
+        final Employee updatedEmployee = new Employee("david",44,"male",11111,"123");
         when(employeeRepository.findById("1")).thenReturn(Optional.of(originalEmployee));
         when(employeeRepository.save(updatedEmployee)).thenReturn(updatedEmployee);
 
@@ -141,7 +141,7 @@ public class EmployeeServiceTest {
     @Test
     public void should_throw_employee_not_found_exception_when_update_given_invalid_employee_id() {
         //given
-        final Employee employee = new Employee("david",44,"male",11111);
+        final Employee employee = new Employee("david",44,"male",11111,"123");
         when(employeeRepository.findById(any())).thenReturn(Optional.empty());
 
         //when
@@ -156,7 +156,7 @@ public class EmployeeServiceTest {
     @Test
     public void should_delete_specific_employee_when_delete_given_valid_employee_id() {
         //given
-        final Employee expected = new Employee("david",22,"male",11111);
+        final Employee expected = new Employee("david",22,"male",11111,"123");
         when(employeeRepository.findById("1")).thenReturn(Optional.of(expected));
 
         //when
@@ -169,7 +169,7 @@ public class EmployeeServiceTest {
     @Test
     public void should_throw_employee_not_found_exception_when_delete_given_invalid_employee_id() {
         //given
-        final Employee employee = new Employee("david",44,"male",11111);
+        final Employee employee = new Employee("david",44,"male",11111,"123");
         when(employeeRepository.findById(any())).thenReturn(Optional.empty());
 
         //when
