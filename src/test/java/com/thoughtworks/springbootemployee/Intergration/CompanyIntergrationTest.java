@@ -179,30 +179,28 @@ public class CompanyIntergrationTest {
         Optional<Company> actual = companyRepository.findById(company.getId());
         assertEquals(Optional.empty(), actual);
     }
-//
-//    @Test
-//    public void should_return_bad_request_when_delete_given_wrong_format_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        //when
-//        //then
-//        mockMvc.perform(delete("/companies/" + "9999999"))
-//                .andExpect(status().isBadRequest());
-//    }
-//
-//    @Test
-//    public void should_return_not_found_when_delete_given_invalid_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        //when
-//        //then
-//        mockMvc.perform(delete("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
-//                .andExpect(status().isNotFound());
-//    }
+
+    @Test
+    public void should_return_bad_request_when_delete_given_wrong_format_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(delete("/companies/" + "9999999"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_delete_given_invalid_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        //when
+        //then
+        mockMvc.perform(delete("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
+                .andExpect(status().isNotFound());
+    }
 //
 //    @Test
 //    public void should_return_updated_company_when_update_given_company() throws Exception {
