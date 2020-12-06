@@ -11,7 +11,7 @@ public class CompanyResponse {
     private Integer employeesNumber;
     private List<Employee> employees;
 
-    public CompanyResponse(){
+    public CompanyResponse() {
     }
 
     public CompanyResponse(String id, String companyName, Integer employeesNumber, List<Employee> employees) {

@@ -15,7 +15,8 @@ public class EmployeeResponse {
         this.salary = salary;
     }
 
-    public EmployeeResponse(){}
+    public EmployeeResponse() {
+    }
 
     public String getId() {
         return id;

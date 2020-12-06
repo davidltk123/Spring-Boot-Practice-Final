@@ -1,7 +1,9 @@
 package com.thoughtworks.springbootemployee.DTO;
 
 public class CompanyRequest {
-    public CompanyRequest() { }
+    public CompanyRequest() {
+    }
+
     private String companyName;
 
     public CompanyRequest(String name) {

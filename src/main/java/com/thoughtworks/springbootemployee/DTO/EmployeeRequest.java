@@ -15,7 +15,8 @@ public class EmployeeRequest {
         this.companyId = companyId;
     }
 
-    public EmployeeRequest(){}
+    public EmployeeRequest() {
+    }
 
     public String getName() {
         return name;
