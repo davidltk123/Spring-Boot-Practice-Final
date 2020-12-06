@@ -19,13 +19,13 @@ public class CompanyMapper {
     @Autowired
     private CompanyService companyService;
 
-    public Company toEntity(CompanyRequest companyRequest){
+    public Company toEntity(CompanyRequest companyRequest) {
         Company company = new Company();
         BeanUtils.copyProperties(companyRequest, company);
         return company;
     }
 
-    public CompanyResponse toResponse(Company company){
+    public CompanyResponse toResponse(Company company) {
         List<Employee> employees = companyService.getEmployeesByCompanyId(company.getId());
         CompanyResponse companyResponse = new CompanyResponse();
         BeanUtils.copyProperties(company, companyResponse);
