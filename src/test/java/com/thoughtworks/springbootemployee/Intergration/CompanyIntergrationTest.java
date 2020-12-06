@@ -11,11 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -201,67 +197,57 @@ public class CompanyIntergrationTest {
         mockMvc.perform(delete("/companies/" + "5fc9a83a8a77666d0c8ea0e1"))
                 .andExpect(status().isNotFound());
     }
-//
-//    @Test
-//    public void should_return_updated_company_when_update_given_company() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        String updateCompanyAsJson = "{\n" +
-//                "    \"companyName\": \"Tesla\",\n" +
-//                "    \"employeesNumber\": 2,\n" +
-//                "    \"employeeIds\": [\"1\",\"100\"]\n" +
-//                "}";
-//
-//        //when
-//        //then
-//        mockMvc.perform(put("/companies/" + company.getId())
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(updateCompanyAsJson))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.id").isString())
-//                .andExpect(jsonPath("$.companyName").value("Tesla"))
-//                .andExpect(jsonPath("$.employeesNumber").value(2))
-//                .andExpect(jsonPath("$.employeeIds[0]").value("1"))
-//                .andExpect(jsonPath("$.employeeIds[1]").value("100"));
-//    }
-//
-//    @Test
-//    public void should_return_bad_request_when_update_given_wrong_format_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        String updateCompanyAsJson = "{\n" +
-//                "    \"companyName\": \"Tesla\",\n" +
-//                "    \"employeesNumber\": 2,\n" +
-//                "    \"employeesId\": [\"1\",\"100\"]\n" +
-//                "}";
-//        //when
-//        //then
-//        mockMvc.perform(put("/companies/" + "9999999")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(updateCompanyAsJson))
-//                .andExpect(status().isBadRequest());
-//    }
-//
-//    @Test
-//    public void should_return_not_found_when_update_given_invalid_company_id() throws Exception {
-//        //given
-//        List<String> employeeIds = Arrays.asList("1", "2");
-//        Company company = new Company("alibaba", 2, employeeIds);
-//        companyRepository.save(company);
-//        String updateCompanyAsJson = "{\n" +
-//                "    \"companyName\": \"Tesla\",\n" +
-//                "    \"employeesNumber\": 2,\n" +
-//                "    \"employeesId\": [\"1\",\"100\"]\n" +
-//                "}";
-//        //when
-//        //then
-//        mockMvc.perform(put("/companies/" + "5fc9a83a8a77666d0c8ea0e1")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(updateCompanyAsJson))
-//                .andExpect(status().isNotFound());
-//    }
+
+    @Test
+    public void should_return_updated_company_when_update_given_company() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        String updateCompanyAsJson = "{\n" +
+                "    \"companyName\": \"Tesla\"\n" +
+                "}";
+
+        //when
+        //then
+        mockMvc.perform(put("/companies/" + company.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateCompanyAsJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isString())
+                .andExpect(jsonPath("$.companyName").value("Tesla"))
+                .andExpect(jsonPath("$.employeesNumber").value(0))
+                .andExpect(jsonPath("$.employees", hasSize(0)));
+    }
+
+    @Test
+    public void should_return_bad_request_when_update_given_wrong_format_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        String updateCompanyAsJson = "{\n" +
+                "    \"companyName\": \"Tesla\"\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(put("/companies/" + "9999999")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateCompanyAsJson))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_return_not_found_when_update_given_invalid_company_id() throws Exception {
+        //given
+        Company company = new Company("alibaba");
+        companyRepository.save(company);
+        String updateCompanyAsJson = "{\n" +
+                "    \"companyName\": \"Tesla\"\n" +
+                "}";
+        //when
+        //then
+        mockMvc.perform(put("/companies/" + "5fc9a83a8a77666d0c8ea0e1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateCompanyAsJson))
+                .andExpect(status().isNotFound());
+    }
 }
