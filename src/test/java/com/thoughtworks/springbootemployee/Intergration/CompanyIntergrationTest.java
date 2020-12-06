@@ -11,7 +11,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import java.util.Optional;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -40,7 +42,7 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
-        Employee employee = new Employee("David",22,"male",11111,company.getId());
+        Employee employee = new Employee("David", 22, "male", 11111, company.getId());
         employeeRepository.save(employee);
         //when
         //then
@@ -60,7 +62,7 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
-        Employee employee = new Employee("David",22,"male",11111,company.getId());
+        Employee employee = new Employee("David", 22, "male", 11111, company.getId());
         employeeRepository.save(employee);
         //when
         //then
@@ -114,11 +116,11 @@ public class CompanyIntergrationTest {
                 .andExpect(jsonPath("$[0].id").isString())
                 .andExpect(jsonPath("$[0].companyName").value("alibaba"))
                 .andExpect(jsonPath("$[0].employeesNumber").value(0))
-                .andExpect(jsonPath("$[0].employees",hasSize(0)))
+                .andExpect(jsonPath("$[0].employees", hasSize(0)))
                 .andExpect(jsonPath("$[1].id").isString())
                 .andExpect(jsonPath("$[1].companyName").value("blibaba"))
                 .andExpect(jsonPath("$[1].employeesNumber").value(0))
-                .andExpect(jsonPath("$[1].employees",hasSize(0)));
+                .andExpect(jsonPath("$[1].employees", hasSize(0)));
     }
 
     @Test
@@ -126,8 +128,8 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
-        Employee employee1 = new Employee("David", 18, "male", 10000,company.getId());
-        Employee employee2 = new Employee("Jackie", 18, "female", 10000,company.getId());
+        Employee employee1 = new Employee("David", 18, "male", 10000, company.getId());
+        Employee employee2 = new Employee("Jackie", 18, "female", 10000, company.getId());
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         //when
@@ -213,7 +215,7 @@ public class CompanyIntergrationTest {
         //given
         Company company = new Company("alibaba");
         companyRepository.save(company);
-        Employee employee = new Employee("David",22,"male",11111,company.getId());
+        Employee employee = new Employee("David", 22, "male", 11111, company.getId());
         employeeRepository.save(employee);
         String updateCompanyAsJson = "{\n" +
                 "    \"companyName\": \"Tesla\"\n" +

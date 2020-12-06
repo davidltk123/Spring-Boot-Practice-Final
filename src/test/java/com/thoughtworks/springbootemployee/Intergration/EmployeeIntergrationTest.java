@@ -35,7 +35,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_all_employees_when_get_all_given_all_employees() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         //when
         //then
@@ -52,7 +52,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_specific_employee_when_get_by_id_given_valid_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         //when
         //then
@@ -69,7 +69,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_bad_request_not_found_when_get_by_id_given_wrong_format_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         //when
         //then
@@ -80,7 +80,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_not_found_when_get_by_id_given_invalid_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         //when
         //then
@@ -91,8 +91,8 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_all_male_employees_when_get_by_gender_given_gender_is_male() throws Exception {
         //given
-        Employee employee1 = new Employee("David", 18, "male", 10000,"123");
-        Employee employee2 = new Employee("Jackie", 18, "female", 10000,"123");
+        Employee employee1 = new Employee("David", 18, "male", 10000, "123");
+        Employee employee2 = new Employee("Jackie", 18, "female", 10000, "123");
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         //when
@@ -112,9 +112,9 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_2_employees_when_get_by_paging_given_3_employees_and_page_number_is_0_and_pagesize_is_2() throws Exception {
         //given
-        Employee employee1 = new Employee("David", 18, "male", 10000,"123");
-        Employee employee2 = new Employee("Jackie", 18, "female", 10000,"123");
-        Employee employee3 = new Employee("Tom", 18, "male", 10000,"123");
+        Employee employee1 = new Employee("David", 18, "male", 10000, "123");
+        Employee employee2 = new Employee("Jackie", 18, "female", 10000, "123");
+        Employee employee3 = new Employee("Tom", 18, "male", 10000, "123");
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);
         employeeRepository.save(employee3);
@@ -168,7 +168,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_delete_specific_employee_when_delete_given_valid_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
 
         //when
@@ -183,7 +183,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_bad_request_when_delete_given_wrong_format_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         //when
         //then
@@ -194,7 +194,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_not_found_when_delete_given_invalid_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         //when
         //then
@@ -205,7 +205,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_updated_employee_when_update_given_employee() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         String updateEmployeeAsJson = "{\n" +
                 "    \"name\": \"David\",\n" +
@@ -232,7 +232,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_bad_request_when_update_given_wrong_format_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         String updateEmployeeAsJson = "{\n" +
                 "    \"name\": \"David\",\n" +
@@ -252,7 +252,7 @@ public class EmployeeIntergrationTest {
     @Test
     public void should_return_not_found_when_update_given_invalid_employee_id() throws Exception {
         //given
-        Employee employee = new Employee("David", 18, "male", 10000,"123");
+        Employee employee = new Employee("David", 18, "male", 10000, "123");
         employeeRepository.save(employee);
         String updateEmployeeAsJson = "{\n" +
                 "    \"name\": \"David\",\n" +
