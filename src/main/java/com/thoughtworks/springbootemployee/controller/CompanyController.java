@@ -30,12 +30,17 @@ public class CompanyController {
 
     @GetMapping
     public List<CompanyResponse> getAll() {
-        return companyService.getAll().stream().map(companyMapper::toResponse).collect(Collectors.toList());
+        return companyService.getAll().stream().map(this::getCompanyResponse).collect(Collectors.toList());
+    }
+
+    private CompanyResponse getCompanyResponse(Company company){
+        List<Employee> employees = companyService.getEmployeesByCompanyId(company.getId());
+        return companyMapper.toResponse(company,employees.stream().map(employeeMapper::toResponse).collect(Collectors.toList()));
     }
 
     @GetMapping("/{companyId}")
     public CompanyResponse getById(@PathVariable String companyId) {
-        return companyMapper.toResponse(companyService.getById(companyId));
+        return getCompanyResponse(companyService.getById(companyId));
     }
 
     @GetMapping("/{companyId}/employees")
@@ -45,18 +50,18 @@ public class CompanyController {
 
     @GetMapping(params = {"page", "pageSize"})
     public List<CompanyResponse> getPaginatedAll(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer pageSize) {
-        return companyService.getPaginatedAll(page, pageSize).stream().map(companyMapper::toResponse).collect(Collectors.toList());
+        return companyService.getPaginatedAll(page, pageSize).stream().map(this::getCompanyResponse).collect(Collectors.toList());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CompanyResponse create(@RequestBody CompanyRequest companyRequest) {
-        return companyMapper.toResponse(companyService.create(companyMapper.toEntity(companyRequest)));
+        return getCompanyResponse(companyService.create(companyMapper.toEntity(companyRequest)));
     }
 
     @PutMapping("/{companyId}")
     public CompanyResponse update(@PathVariable String companyId, @RequestBody CompanyRequest companyRequest) {
-        return companyMapper.toResponse(companyService.update(companyId, companyMapper.toEntity(companyRequest)));
+        return getCompanyResponse(companyService.update(companyId, companyMapper.toEntity(companyRequest)));
     }
 
     @DeleteMapping("/{companyId}")

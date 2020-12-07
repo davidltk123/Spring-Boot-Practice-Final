@@ -1,20 +1,17 @@
 package com.thoughtworks.springbootemployee.DTO;
 
-import com.thoughtworks.springbootemployee.Model.Employee;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyResponse {
     private String id;
     private String companyName;
     private Integer employeesNumber;
-    private List<Employee> employees;
+    private List<EmployeeResponse> employees;
 
     public CompanyResponse() {
     }
 
-    public CompanyResponse(String id, String companyName, Integer employeesNumber, List<Employee> employees) {
+    public CompanyResponse(String id, String companyName, Integer employeesNumber, List<EmployeeResponse> employees) {
         this.id = id;
         this.companyName = companyName;
         this.employeesNumber = employeesNumber;
@@ -33,7 +30,7 @@ public class CompanyResponse {
         return employeesNumber;
     }
 
-    public List<Employee> getEmployees() {
+    public List<EmployeeResponse> getEmployees() {
         return employees;
     }
 
@@ -49,7 +46,7 @@ public class CompanyResponse {
         this.employeesNumber = employeesNumber;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(List<EmployeeResponse> employees) {
         this.employees = employees;
     }
 }
